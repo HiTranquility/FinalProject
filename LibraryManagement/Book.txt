@@ -1,0 +1,30 @@
+B001:The Great Gatsby:F. Scott Fitzgerald:Fiction:True:1925-04-10
+B002:1984:George Orwell:Dystopian:False:1949-06-08
+B003:To Kill a Mockingbird:Harper Lee:Fiction:True:1960-07-11
+B004:Brave New World:Aldous Huxley:Dystopian:True:1932-08-01
+B005:Pride and Prejudice:Jane Austen:Romance:True:1813-01-28
+B006:The Catcher in the Rye:J.D. Salinger:Fiction:False:1951-07-16
+B007:The Lord of the Rings:J.R.R. Tolkien:Fantasy:True:1954-07-29
+B008:The Hobbit:J.R.R. Tolkien:Fantasy:True:1937-09-21
+B009:The Chronicles of Narnia:C.S. Lewis:Fantasy:True:1950-10-16
+B010:The Picture of Dorian Gray:Oscar Wilde:Philosophical:True:1890-07-01
+B011:Frankenstein:Mary Shelley:Horror:True:1818-01-01
+B012:Dracula:Bram Stoker:Horror:False:1897-05-26
+B013:The Shining:Stephen King:Horror:True:1977-01-28
+B014:The Fault in Our Stars:John Green:Romance:True:2012-01-10
+B015:The Alchemist:Paulo Coelho:Adventure:True:1988-01-01
+B016:1984:George Orwell:Science Fiction:False:1949-06-08
+B017:The Hunger Games:Suzanne Collins:Science Fiction:True:2008-09-14
+B018:The Da Vinci Code:Dan Brown:Mystery:True:2003-03-18
+B019:The Girl on the Train:Paula Hawkins:Mystery:True:2015-01-13
+B020:The Kite Runner:Khaled Hosseini:Drama:True:2003-05-29
+B021:The Book Thief:Markus Zusak:Historical Fiction:True:2005-03-14
+B022:The Help:Kathryn Stockett:Historical Fiction:True:2009-02-10
+B023:The Outsiders:S.E. Hinton:Young Adult:True:1967-04-24
+B024:The Secret Garden:Frances Hodgson Burnett:Children's Literature:True:1911-08-01
+B025:The Wind in the Willows:Kenneth Grahame:Children's Literature:True:1908-10-01
+B026:The Little Prince:Antoine de Saint-Exupéry:Children's Literature:True:1943-04-06
+B027:The Great Alone:Kristin Hannah:Historical Fiction:True:2018-02-06
+B028:The Silent Patient:Alex Michaelides:Mystery:True:2019-02-05
+B029:Where the Crawdads Sing:Delia Owens:Historical Fiction:True:2018-08-14
+B030:The Night Circus:Erin Morgenstern:Fantasy:True:2011-09-13

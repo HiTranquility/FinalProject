@@ -1,0 +1,10 @@
+1:Staff:John Doe:30:Male:11/27/1994:123 Main St, Cityville:123-456-7890:johndoe@email.com:johndoe:pass123
+2:Assistant Manager:Jane Smith:28:Female:05/16/1996:456 Oak Rd, Townsville:234-567-8901:janesmith@email.com:janesmith:pass456
+3:Clerk:Michael Johnson:35:Male:02/05/1989:789 Pine Ln, Villagetown:345-678-9012:michaeljohnson@email.com:mjohnson:pass789
+4:Security:Emily Davis:40:Female:09/11/1983:101 Birch Blvd, Smalltown:456-789-0123:emilydavis@email.com:emilyd:pass321
+5:Librarian:William Brown:32:Male:03/14/1992:202 Cedar Dr, Uptown:567-890-1234:willb@email.com:willb:pass654
+6:Technician:Susan Lee:29:Female:06/22/1994:303 Elm St, Midtown:678-901-2345:susanlee@email.com:susanlee:pass987
+7:Assistant Librarian:David Wilson:27:Male:11/30/1996:404 Maple Ave, Rivertown:789-012-3456:davidw@email.com:davidw:pass654
+8:Manager:Olivia Martin:45:Female:01/25/1979:505 Walnut Rd, Hilltown:890-123-4567:oliviam@email.com:oliviam:pass321
+9:Accountant:James White:38:Male:08/10/1985:606 Pinecrest Dr, Eastside:901-234-5678:jameswhite@email.com:jamesw:pass987
+10:Receptionist:Patricia Harris:34:Female:12/03/1989:707 Oakwood Ln, Westside:012-345-6789:patriciah@email.com:patriciah:pass123

@@ -1,106 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LibraryManagement.Model;
 using LibraryManagement.Util;
 
 namespace LibraryManagement.Controller
 {
-    internal class StaffControl
+    internal class StaffControl : PersonControl<Staff>
     {
-        // Danh sách nhân viên của thư viện
-        private List<Staff> staffList;
-
         // Constructor
-        public StaffControl()
+        public StaffControl() : base()
         {
-            staffList = ReadStaffFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\Staff.txt");
+            var staffList = ReadStaffFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\Staff.txt");
+            foreach (var staff in staffList)
+            {
+                AddPerson(staff);
+            }
         }
 
-        // Thêm nhân viên mới
+        // Thêm nhân viên (sử dụng lại từ PersonControl)
         public void AddStaff(Staff staff)
         {
-            staffList.Add(staff);
-            Console.WriteLine("Staff added successfully.");
+            AddPerson(staff);
         }
 
         // Xóa nhân viên theo ID
         public void RemoveStaff(string staffId)
         {
-            Staff staffToRemove = staffList.FirstOrDefault(s => s.Id == staffId);
-            if (staffToRemove != null)
-            {
-                staffList.Remove(staffToRemove);
-                Console.WriteLine("Staff removed successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Staff not found.");
-            }
+            RemovePerson(s => s.Id == staffId);
         }
 
         // Sửa thông tin nhân viên
         public void UpdateStaff(string staffId, string newRole)
         {
-            Staff staffToUpdate = staffList.FirstOrDefault(s => s.Id == staffId);
-            if (staffToUpdate != null)
-            {
-                staffToUpdate.Role = newRole;
-                Console.WriteLine("Staff role updated successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Staff not found.");
-            }
+            UpdatePerson(s => s.Id == staffId, s => s.Role = newRole);
         }
 
         // Hiển thị thông tin tất cả nhân viên
         public void DisplayAllStaff()
         {
-            foreach (var staff in staffList)
-            {
-                Console.WriteLine(staff.ToString());
-            }
-            Console.WriteLine("Press any key to continue to the next member...");
-            Console.ReadKey();  // Dừng lại cho đến khi người dùng nhấn một phím
+            DisplayAllPersons(staff => Console.WriteLine(staff.ToString()));
         }
 
         // Tìm kiếm nhân viên theo ID
         public void SearchStaffById(string staffId)
         {
-            Staff staff = staffList.FirstOrDefault(s => s.Id == staffId);
+            var staff = SearchPerson(s => s.Id == staffId);
             if (staff != null)
             {
                 Console.WriteLine(staff.ToString());
             }
-            else
-            {
-                Console.WriteLine("Staff not found.");
-            }
-        }
-        public Staff GetStaffById(string staffId)
-        {
-            return staffList.FirstOrDefault(staff => staff.Id == staffId);
         }
 
+        // Lấy nhân viên theo ID
+        public Staff GetStaffById(string staffId)
+        {
+            return SearchPerson(s => s.Id == staffId);
+        }
+
+        // Lấy ID nhân viên theo username
+        public string GetIdByUsername(string username)
+        {
+            var staff = SearchPerson(s => s.Username == username);
+            return staff?.Id;
+        }
+
+        // Lấy nhân viên theo username và password
         public Staff GetStaffByUsernameAndPassword(string username, string password)
         {
-            return staffList.FirstOrDefault(staff => staff.Username == username && staff.Password == password);
+            return SearchPerson(s => s.Username == username && s.Password == password);
         }
-        public List<Staff> GetStaffList()
+
+        // Ghi danh sách nhân viên vào file
+        public void WriteToFile()
         {
-            return staffList;
-        }
-        private void WriteToFile()
-        {
-            string content = "";
-            foreach (var staff in staffList)
-            {
-                content += $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender},{staff.DateOfBirth.ToString("MM/dd/yyyy")},{staff.Address},{staff.PhoneNumber},{staff.Email},{staff.Username},{staff.Password}\n";
-            }
-            Read_WriteFile.Instance.WriteFile("Staff.txt", content);
+            WriteToFile("Staff.txt", staff =>
+                $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender}," +
+                $"{staff.DateOfBirth:MM/dd/yyyy},{staff.Address},{staff.PhoneNumber}," +
+                $"{staff.Email},{staff.Username},{staff.Password}");
         }
 
         // Đọc danh sách nhân viên từ file
@@ -133,7 +110,6 @@ namespace LibraryManagement.Controller
                         staffList.Add(staff);
                     }
                 }
-
             }
             catch (Exception ex)
             {

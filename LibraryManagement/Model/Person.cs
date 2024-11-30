@@ -47,7 +47,7 @@
                    $"Phone Number: {PhoneNumber}\n" +
                    $"Email: {Email}\n" +
                    $"Username: {Username}\n" +
-                   $"Password: {Password}\n";
+                   $"Password: [Hidden]\n";
         }
     }
 }

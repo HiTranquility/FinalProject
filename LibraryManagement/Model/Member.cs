@@ -9,11 +9,13 @@ namespace LibraryManagement.Model
     internal class Member : Person
     {
         private string id;
+        private string role;
         private DateTime membershipStartDate;
         private DateTime membershipEndDate;
         private List<string> borrowedBooks;
 
         public string Id { get { return id; } set { this.id = value; } }
+        public string Role { get { return role; } set { this.role = value; } }
         public DateTime MembershipStartDate { get { return membershipStartDate; } set { this.membershipStartDate = value; } }
         public DateTime MembershipEndDate { get { return membershipEndDate; } set { this.membershipEndDate = value; } }
         public List<string> BorrowedBooks { get { return borrowedBooks; } set { this.borrowedBooks = value; } }

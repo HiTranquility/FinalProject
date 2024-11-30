@@ -19,7 +19,6 @@ namespace LibraryManagement.Controller
         public void AddBook(Book book)
         {
             bookList.Add(book);
-            Console.WriteLine("Book added successfully.");
         }
 
         // Xóa sách theo ID
@@ -29,16 +28,11 @@ namespace LibraryManagement.Controller
             if (bookToRemove != null)
             {
                 bookList.Remove(bookToRemove);
-                Console.WriteLine("Book removed successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Book not found.");
             }
         }
 
         // Cập nhật thông tin sách
-        public void UpdateBook(string bookId, string newTitle, string newAuthor, string newGenre, DateTime newPublicationDate)
+        public void UpdateBook(string bookId, string newTitle, string newAuthor, string newGenre, bool newAvalability ,DateTime newPublicationDate)
         {
             Book bookToUpdate = bookList.FirstOrDefault(b => b.Id == bookId);
             if (bookToUpdate != null)
@@ -46,12 +40,8 @@ namespace LibraryManagement.Controller
                 bookToUpdate.Title = newTitle;
                 bookToUpdate.Author = newAuthor;
                 bookToUpdate.Genre = newGenre;
+                bookToUpdate.IsAvailable = newAvalability;
                 bookToUpdate.PublicationDate = newPublicationDate;
-                Console.WriteLine("Book updated successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Book not found.");
             }
         }
 
@@ -63,8 +53,7 @@ namespace LibraryManagement.Controller
                 Console.WriteLine(book.ToString());
                 Console.WriteLine("--------------------------------------------");
             }
-            Console.WriteLine("Press any key to continue to the next member...");
-            Console.ReadKey();  // Dừng lại cho đến khi người dùng nhấn một phím
+            Screen.WaitScreen();
         }
 
         // Tìm kiếm sách theo ID
@@ -75,10 +64,10 @@ namespace LibraryManagement.Controller
             {
                 Console.WriteLine(book.ToString());
             }
-            else
-            {
-                Console.WriteLine("Book not found.");
-            }
+        }
+        public Book GetBookById(string bookId)
+        {
+            return bookList.FirstOrDefault(b => b.Id == bookId);
         }
 
         // Mượn sách
@@ -110,10 +99,6 @@ namespace LibraryManagement.Controller
             {
                 bookToReturn.ReturnBook();
             }
-            else
-            {
-                Console.WriteLine("Book not found.");
-            }
         }
 
         // Lấy danh sách sách
@@ -134,9 +119,10 @@ namespace LibraryManagement.Controller
             Console.WriteLine("Enter Book Genre:");
             string genre = Console.ReadLine();
             Console.WriteLine("Enter Publication Date (yyyy-MM-dd):");
+            bool newAvability = false;
             DateTime publicationDate = DateTime.Parse(Console.ReadLine());
 
-            return new Book(id, title, author, genre, publicationDate);
+            return new Book(id, title, author, genre, newAvability, publicationDate);
         }
 
         // Cập nhật thông tin sách

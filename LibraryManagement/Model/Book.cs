@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using LibraryManagement.Controller;
+using LibraryManagement.Model;
+using LibraryManagement.Util;
 
 namespace LibraryManagement.Model
 {
@@ -11,55 +15,65 @@ namespace LibraryManagement.Model
         private bool isAvailable;
         private DateTime publicationDate;
 
-        public string Id { get { return id; } set { id = value; } }
-        public string Title { get { return title; } set { title = value; } }
-        public string Author { get { return author; } set { author = value; } }
-        public string Genre { get { return genre; } set { genre = value; } }
-        public bool IsAvailable { get { return isAvailable; } set { isAvailable = value; } }
-        public DateTime PublicationDate { get { return publicationDate; } set { publicationDate = value; } }
+        // Properties
+        public string Id { get { return id; } set { this.id = value; } }
+        public string Title { get { return title; } set { this.title = value; } }
+        public string Author { get { return author; } set { this.author = value; } }
+        public string Genre { get { return genre; } set { this.genre = value; } }
+        public bool IsAvailable { get { return isAvailable; } set { this.isAvailable = value; } }
+        public DateTime PublicationDate { get { return publicationDate; } set { this.publicationDate = value; } }
 
-        public Book() { }
-
-        public Book(string id, string title, string author, string genre, DateTime publicationDate)
+        // Constructor
+        public Book(string id, string title, string author, string genre, bool isAvailable, DateTime publicationDate)
         {
             this.id = id;
             this.title = title;
             this.author = author;
             this.genre = genre;
+            this.isAvailable = isAvailable;
             this.publicationDate = publicationDate;
-            this.isAvailable = true;  // Sách mới mặc định là có sẵn
         }
 
-        // Phương thức mượn sách
-        public void BorrowBook()
-        {
-            if (isAvailable)
-            {
-                isAvailable = false;
-                Console.WriteLine($"The book '{Title}' has been borrowed.");
-            }
-            else
-            {
-                Console.WriteLine($"The book '{Title}' is currently not available.");
-            }
+        // Default Constructor
+        public Book() 
+        { 
         }
 
-        // Phương thức trả sách
-        public void ReturnBook()
-        {
-            isAvailable = true;
-            Console.WriteLine($"The book '{Title}' has been returned.");
-        }
-
-        // Phương thức ToString để hiển thị thông tin sách
+        // Override ToString for displaying book information
         public override string ToString()
         {
             return $"ID: {Id}\n" +
                    $"Title: {Title}\n" +
                    $"Author: {Author}\n" +
                    $"Genre: {Genre}\n" +
-                   $"Publication Date: {PublicationDate.ToShortDateString()}\n" +
-                   $"Available: {(IsAvailable ? "Yes" : "No")}";
+                   $"Available: {(IsAvailable ? "Yes" : "No")}\n" +
+                   $"Publication Date: {PublicationDate:yyyy-MM-dd}\n";
+        }
+        public void BorrowBook()
+        {
+            if (IsAvailable)
+            {
+                IsAvailable = false;
+                Console.WriteLine($"The book '{Title}' has been successfully borrowed.");
+            }
+            else
+            {
+                Console.WriteLine($"The book '{Title}' is currently unavailable.");
+            }
+        }
+
+        // Method to return the book (mark as available)
+        public void ReturnBook()
+        {
+            if (!IsAvailable)
+            {
+                IsAvailable = true;
+                Console.WriteLine($"The book '{Title}' has been successfully returned.");
+            }
+            else
+            {
+                Console.WriteLine($"The book '{Title}' was not borrowed.");
+            }
         }
     }
 }

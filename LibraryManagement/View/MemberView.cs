@@ -1,107 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LibraryManagement.Model;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using LibraryManagement.Controller;
+//using LibraryManagement.Model;
 
-namespace LibraryManagement.View
-{
-    internal class MemberView
-    {
-        // Hiển thị tất cả thành viên
-        public void DisplayAllMembers(List<Member> memberList)
-        {
-            Console.WriteLine("---- List of Members ----");
-            foreach (var member in memberList)
-            {
-                Console.WriteLine(member.ToString());
-            }
-            Console.WriteLine("Press any key to continue to exit!...");
-            Console.ReadKey();  // Dừng lại cho đến khi người dùng nhấn một phím
-        }
+//namespace LibraryManagement.View
+//{
+//    internal class MemberView
+//    {
+//        public void DisplaySuccessMessage(string message)
+//        {
+//            Console.WriteLine(message);
+//        }
 
-        // Hiển thị chi tiết thông tin thành viên
-        public void DisplayMemberDetails(Member member)
-        {
-            if (member != null)
-            {
-                Console.WriteLine("---- Member Details ----");
-                Console.WriteLine(member.ToString());
-            }
-            else
-            {
-                Console.WriteLine("Member not found.");
-            }
-        }
+//        // Hiển thị thông báo lỗi
+//        public void DisplayErrorMessage(string message)
+//        {
+//            Console.WriteLine("Error: " + message);
+//        }
+//        public static void MemberMenu(MemberControl memberControl, BookControl bookControl, MemberView memberView)
+//        {
+//            bool memberExit = false;
+//            Member currentMember = memberControl.GetMemberById();
 
-        // Hiển thị thông báo thành công
-        public void DisplaySuccessMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
+//            if (currentMember == null)
+//            {
+//                Console.WriteLine("Member not found.");
+//                return;
+//            }
 
-        // Hiển thị thông báo lỗi
-        public void DisplayErrorMessage(string message)
-        {
-            Console.WriteLine("Error: " + message);
-        }
+//            while (!memberExit)
+//            {
+//                Console.Clear();
+//                Console.WriteLine("------ Member Menu ------");
+//                Console.WriteLine("1. View My Information");
+//                Console.WriteLine("2. Borrow Book");
+//                Console.WriteLine("3. Return Book");
+//                Console.WriteLine("4. View Number of Borrowed Books");
+//                Console.WriteLine("5. Back to Main Menu");
+//                Console.Write("Choose an option (1-5): ");
 
-        // Nhận thông tin đầu vào để thêm thành viên
-        public Member GetNewMemberInput()
-        {
-            Console.WriteLine("Enter Member Name:");
-            string name = Console.ReadLine();
+//                string choice = Console.ReadLine();
 
-            Console.WriteLine("Enter Member Age:");
-            int age = int.Parse(Console.ReadLine());
+//                switch (choice)
+//                {
+//                    case "1":
+//                        memberView.DisplayMemberInfo(currentMember);
+//                        break;
 
-            Console.WriteLine("Enter Member Gender:");
-            string gender = Console.ReadLine();
+//                    case "2":
+//                        Console.Write("Enter Book ID to borrow: ");
+//                        string bookIdToBorrow = Console.ReadLine();
+//                        bookControl.BorrowBook(bookIdToBorrow);
+//                        break;
 
-            Console.WriteLine("Enter Member ID:");
-            string id = Console.ReadLine();
+//                    case "3":
+//                        Console.Write("Enter Book ID to return: ");
+//                        string bookIdToReturn = Console.ReadLine();
+//                        bookControl.ReturnBook(bookIdToReturn);
+//                        break;
 
-            Console.WriteLine("Enter Member Address:");
-            string address = Console.ReadLine();
+//                    case "4":
+//                        int borrowedBooksCount = memberControl.GetBorrowedBooksCount(currentMember.MemberId);
+//                        Console.WriteLine($"You have currently borrowed {borrowedBooksCount} books.");
+//                        Console.WriteLine("Press any key to continue...");
+//                        Console.ReadKey();
+//                        break;
 
-            return new Member { Name = name, Age = age, Gender = gender, Id = id, Address = address };
-        }
+//                    case "5":
+//                        memberExit = true;
+//                        break;
 
-        // Nhận thông tin đầu vào để cập nhật địa chỉ thành viên
-        public void GetUpdateMemberInput(out string memberId, out string newAddress)
-        {
-            Console.WriteLine("Enter Member ID to update:");
-            memberId = Console.ReadLine();
-
-            Console.WriteLine("Enter New Address:");
-            newAddress = Console.ReadLine();
-        }
-
-        // Nhận thông tin đầu vào để xóa thành viên
-        public string GetMemberIdForRemoval()
-        {
-            Console.WriteLine("Enter Member ID to remove:");
-            return Console.ReadLine();
-        }
-        public void DisplayMemberInfo(Member member)
-        {
-            if (member != null)
-            {
-                Console.WriteLine("---- Current Member Information ----");
-                Console.WriteLine($"Name: {member.Name}");
-                Console.WriteLine($"Age: {member.Age}");
-                Console.WriteLine($"Gender: {member.Gender}");
-                Console.WriteLine($"ID: {member.Id}");
-                Console.WriteLine($"Address: {member.Address}");
-                Console.WriteLine($"Phone Number: {member.PhoneNumber}");
-                Console.WriteLine($"Email: {member.Email}");
-            }
-            else
-            {
-                Console.WriteLine("Member not found.");
-            }
-        }
-    }
-}
+//                    default:
+//                        Console.WriteLine("Invalid choice! Please try again.");
+//                        break;
+//                }
+//            }
+//        }
+//    }
+//}
 

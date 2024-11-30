@@ -1,103 +1,109 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LibraryManagement.Model;
 
 namespace LibraryManagement.Controller
 {
-    internal class MemberControl
+    internal class MemberControl : PersonControl<Member>
     {
-        private List<Member> memberList;
+        // Constructor
+        public MemberControl() : base() { }
 
-        public MemberControl()
-        {
-            memberList = new List<Member>();
-        }
-
-        // Thêm thành viên mới
+        // Thêm thành viên (sử dụng lại từ PersonControl)
         public void AddMember(Member member)
         {
-            memberList.Add(member);
-            Console.WriteLine("Member added successfully.");
+            AddPerson(member);
         }
 
         // Xóa thành viên theo ID
         public void RemoveMember(string memberId)
         {
-            Member memberToRemove = memberList.FirstOrDefault(m => m.Id == memberId);
-            if (memberToRemove != null)
-            {
-                memberList.Remove(memberToRemove);
-                Console.WriteLine("Member removed successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Member not found.");
-            }
+            RemovePerson(m => m.Id == memberId);
         }
 
         // Cập nhật thông tin thành viên
         public void UpdateMember(string memberId, string newAddress)
         {
-            Member memberToUpdate = memberList.FirstOrDefault(m => m.Id == memberId);
-            if (memberToUpdate != null)
-            {
-                memberToUpdate.Address = newAddress;
-                Console.WriteLine("Member address updated successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Member not found.");
-            }
+            UpdatePerson(m => m.Id == memberId, m => m.Address = newAddress);
         }
 
         // Hiển thị tất cả thành viên
         public void DisplayAllMembers()
         {
-            foreach (var member in memberList)
+            DisplayAllPersons(member =>
             {
                 Console.WriteLine(member.ToString());
                 Console.WriteLine("Press any key to continue to the next member...");
-                Console.ReadKey();  // Dừng lại cho đến khi người dùng nhấn một phím
-            }
+                Console.ReadKey();
+            });
         }
 
         // Tìm kiếm thành viên theo ID
         public void SearchMemberById(string memberId)
         {
-            Member member = memberList.FirstOrDefault(m => m.Id == memberId);
+            var member = SearchPerson(m => m.Id == memberId);
             if (member != null)
             {
                 Console.WriteLine(member.ToString());
             }
-            else
-            {
-                Console.WriteLine("Member not found.");
-            }
         }
 
-        // Trả về danh sách thành viên
+        // Lấy danh sách thành viên
         public List<Member> GetMemberList()
         {
-            return memberList;
+            return GetAllPersons();
         }
 
         // Lấy thành viên theo ID
         public Member GetMemberById(string memberId)
         {
-            return memberList.FirstOrDefault(member => member.Id == memberId);
+            return SearchPerson(m => m.Id == memberId);
         }
-
-
 
         // Lấy thành viên theo username và password
         public Member GetMemberByUsernameAndPassword(string username, string password)
         {
-            return memberList.FirstOrDefault(member => member.Username == username && member.Password == password);
+            return SearchPerson(m => m.Username == username && m.Password == password);
         }
 
+        // Lấy ID thành viên theo username
+        public string GetIdByUsername(string username)
+        {
+            var member = SearchPerson(m => m.Username == username);
+            return member?.Id;
+        }
 
+        // Ghi danh sách thành viên vào file
+        public void WriteToFile(string filePath)
+        {
+            WriteToFile(filePath, member =>
+                $"{member.Id},{member.Name},{member.Address},{member.PhoneNumber}," +
+                $"{member.Email},{member.Username},{member.Password}");
+        }
+
+        // Đọc danh sách thành viên từ file
+      /*  public void ReadMembersFromFile(string filePath)
+        {
+            var members = ReadPersonsFromFile(filePath, line =>
+            {
+                var data = line.Split(':');
+                return new Member
+                {
+                    Id = data[0],
+                    Name = data[1],
+                    Address = data[2],
+                    PhoneNumber = data[3],
+                    Email = data[4],
+                    Username = data[5],
+                    Password = data[6]
+                };
+            });
+
+            foreach (var member in members)
+            {
+                AddPerson(member);
+            }
+        }*/
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryManagement.Model
 {
@@ -12,34 +9,57 @@ namespace LibraryManagement.Model
         private string role;
         private DateTime membershipStartDate;
         private DateTime membershipEndDate;
-        private List<string> borrowedBooks;
+        private List<Book> borrowedBooks;
 
-        public string Id { get { return id; } set { this.id = value; } }
-        public string Role { get { return role; } set { this.role = value; } }
-        public DateTime MembershipStartDate { get { return membershipStartDate; } set { this.membershipStartDate = value; } }
-        public DateTime MembershipEndDate { get { return membershipEndDate; } set { this.membershipEndDate = value; } }
-        public List<string> BorrowedBooks { get { return borrowedBooks; } set { this.borrowedBooks = value; } }
+        public string Id { get { return id; } set { id = value; } }
+        public string Role { get { return role; } set { role = value; } }
+        public DateTime MembershipStartDate { get { return membershipStartDate; } set { membershipStartDate = value; } }
+        public DateTime MembershipEndDate { get { return membershipEndDate; } set { membershipEndDate = value; } }
+        public List<Book> BorrowedBooks { get { return borrowedBooks; } set { borrowedBooks = value; } }
 
         public Member()
         {
-            borrowedBooks = new List<string>();  
+            borrowedBooks = new List<Book>();
+        }
+        public override string GetId()
+        {
+            return Id; // Trả về thuộc tính `Id` của lớp `Member`
+        }
+        public void BorrowBook(Book book)
+        {
+            if (book.IsAvailable)
+            {
+                borrowedBooks.Add(book);
+                book.BorrowBook(); 
+            }
+            else
+            {
+                Console.WriteLine($"The book '{book.Title}' is currently unavailable.");
+            }
         }
 
-        public void BorrowBook(string bookTitle)
+        public void ReturnBook(Book book)
         {
-            borrowedBooks.Add(bookTitle);
-        }
-
-        public void ReturnBook(string bookTitle)
-        {
-            borrowedBooks.Remove(bookTitle);
+            if (borrowedBooks.Contains(book))
+            {
+                borrowedBooks.Remove(book);
+                book.ReturnBook(); // Update book's availability
+            }
+            else
+            {
+                Console.WriteLine($"The book '{book.Title}' is not borrowed by this member.");
+            }
         }
 
         public override string ToString()
         {
-            // Gọi phương thức ToString() của lớp Person và thêm thông tin Member
-            return $"\nMembership ID: {Id}\nMembership Start Date: {MembershipStartDate.ToShortDateString()}\nMembership End Date: {MembershipEndDate.ToShortDateString()}\nBorrowed Books: {string.Join(", ", BorrowedBooks)}" + base.ToString();
+            // Call the ToString() method of the base class and append Member details
+            return base.ToString() +
+                   $"\nMembership ID: {Id}\n" +
+                   $"Role: {Role}\n" +
+                   $"Membership Start Date: {MembershipStartDate.ToShortDateString()}\n" +
+                   $"Membership End Date: {MembershipEndDate.ToShortDateString()}\n" +
+                   $"Borrowed Books: {string.Join(", ", borrowedBooks.Select(b => b.Title))}";
         }
     }
 }
-

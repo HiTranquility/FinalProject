@@ -102,13 +102,10 @@ namespace LibraryManagement.View
 
 
         // Nhận thông tin đầu vào để cập nhật nhân viên
-        public void GetUpdateStaffInput(out string staffId, out string newRole)
+        public void GetUpdateStaffInput(out string staffId)
         {
             Console.WriteLine("Enter Staff ID to update:");
             staffId = Console.ReadLine();
-
-            Console.WriteLine("Enter New Role:");
-            newRole = Console.ReadLine();
         }
 
         // Hiển thị tất cả thành viên
@@ -187,13 +184,10 @@ namespace LibraryManagement.View
         }
          
         // Nhận thông tin đầu vào để cập nhật địa chỉ thành viên
-        public void GetUpdateMemberInput(out string memberId, out string newAddress)
+        public void GetUpdateMemberInput(out string memberId)
         {
             Console.WriteLine("Enter Member ID to update:");
             memberId = Console.ReadLine();
-
-            Console.WriteLine("Enter New Address:");
-            newAddress = Console.ReadLine();
         }
 
         // Nhận thông tin đầu vào để xóa thành viên
@@ -265,14 +259,10 @@ namespace LibraryManagement.View
             Screen.WaitScreen();
         }
 
-        public void GetUpdateLibrarianInput(out string librarianId, out string newRole)
+        public void GetUpdateLibrarianInput(out string librarianId)
         {
             Console.WriteLine("Enter Librarian ID to update:");
             librarianId = Console.ReadLine();
-
-            Console.WriteLine("Enter New Role:");
-            newRole = Console.ReadLine();
-
         }
 
         public void DisplayLibrarianDetails(Librarian librarian)
@@ -351,15 +341,15 @@ namespace LibraryManagement.View
                         break;
 
                     case "2":
-                        staffView.GetUpdateStaffInput(out string staffId, out string newRole);
-                        staffControl.UpdateStaff(staffId, newRole);
+                        staffView.GetUpdateStaffInput(out string staffId);
+                        staffControl.UpdateStaffById(staffId);
                         staffView.DisplaySuccessMessage("Staff updated successfully.");
                         break;
 
                     case "3":
                         Console.WriteLine("Enter Staff ID to remove:");
                         string staffIdToRemove = Console.ReadLine();
-                        staffControl.RemoveStaff(staffIdToRemove);
+                        staffControl.RemoveStaffById(staffIdToRemove);
                         staffView.DisplaySuccessMessage("Staff removed successfully.");
                         break;
 
@@ -412,8 +402,8 @@ namespace LibraryManagement.View
 
                     case "2":
                         // Update Librarian (Get all update details)
-                        staffView.GetUpdateLibrarianInput(out string librarianId, out string newRole);
-                        librarianControl.UpdateLibrarian(librarianId, newRole);
+                        staffView.GetUpdateLibrarianInput(out string librarianId);
+                        librarianControl.UpdateLibrarian(librarianId);
                         staffView.DisplaySuccessMessage("Librarian updated successfully.");
                         break;
 
@@ -476,15 +466,15 @@ namespace LibraryManagement.View
 
                     case "2":
                         Console.WriteLine("Enter Member ID and new membership level:");
-                        staffView.GetUpdateMemberInput(out string memberId, out string newMembershipLevel);
-                        memberControl.UpdateMember(memberId, newMembershipLevel);
+                        staffView.GetUpdateMemberInput(out string memberId);
+                        memberControl.UpdateMemberById(memberId);
                         Console.WriteLine("Member updated successfully.");
                         break;
 
                     case "3":
                         Console.WriteLine("Enter Member ID to remove:");
                         string memberIdToRemove = Console.ReadLine();
-                        memberControl.RemoveMember(memberIdToRemove);
+                        memberControl.RemoveMemberById(memberIdToRemove);
                         Console.WriteLine("Member removed successfully.");
                         break;
 

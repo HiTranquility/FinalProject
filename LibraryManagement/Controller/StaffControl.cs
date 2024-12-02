@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using LibraryManagement.Model;
 using LibraryManagement.Util;
 
@@ -11,6 +10,7 @@ namespace LibraryManagement.Controller
         // Constructor
         public StaffControl() : base()
         {
+            // Đọc dữ liệu từ file và thêm vào danh sách
             var staffList = ReadStaffFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\Staff.txt");
             foreach (var staff in staffList)
             {
@@ -18,66 +18,68 @@ namespace LibraryManagement.Controller
             }
         }
 
-        // Thêm nhân viên (sử dụng lại từ PersonControl)
+        // Thêm nhân viên
         public void AddStaff(Staff staff)
         {
             AddPerson(staff);
         }
 
         // Xóa nhân viên theo ID
-        public void RemoveStaff(string staffId)
+        public void RemoveStaffById(string staffId)
         {
-            RemovePerson(s => s.Id == staffId);
+            RemovePersonById(staffId);
         }
 
         // Sửa thông tin nhân viên
-        public void UpdateStaff(string staffId, string newRole)
+        public void UpdateStaffById(string staffId)
         {
-            UpdatePerson(s => s.Id == staffId, s => s.Role = newRole);
+            UpdatePersonById(staffId);
         }
 
         // Hiển thị thông tin tất cả nhân viên
         public void DisplayAllStaff()
         {
-            DisplayAllPersons(staff => Console.WriteLine(staff.ToString()));
+            DisplayAllPersons();
         }
-
-        // Tìm kiếm nhân viên theo ID
-        public void SearchStaffById(string staffId)
+        public void DisplayStaffDetails(string id)
         {
-            var staff = SearchPerson(s => s.Id == staffId);
-            if (staff != null)
-            {
-                Console.WriteLine(staff.ToString());
-            }
+            DisplayPersonDetails(id);
         }
-
-        // Lấy nhân viên theo ID
+        public List<Staff> GetStaffList()
+        {
+            return GetPersonList();
+        }
+        // Tìm kiếm nhân viên theo ID
         public Staff GetStaffById(string staffId)
         {
-            return SearchPerson(s => s.Id == staffId);
+            return GetPersonById(staffId);
         }
 
-        // Lấy ID nhân viên theo username
         public string GetIdByUsername(string username)
         {
-            var staff = SearchPerson(s => s.Username == username);
-            return staff?.Id;
+            var staff = GetPersonList().Find(s => s.Username == username);
+            return staff?.Username;
         }
 
-        // Lấy nhân viên theo username và password
         public Staff GetStaffByUsernameAndPassword(string username, string password)
         {
-            return SearchPerson(s => s.Username == username && s.Password == password);
+            return GetPersonList().Find(s => s.Username == username && s.Password == password);
         }
 
-        // Ghi danh sách nhân viên vào file
-        public void WriteToFile()
+        public void WriteToFile(string filePath)
         {
-            WriteToFile("Staff.txt", staff =>
-                $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender}," +
-                $"{staff.DateOfBirth:MM/dd/yyyy},{staff.Address},{staff.PhoneNumber}," +
-                $"{staff.Email},{staff.Username},{staff.Password}");
+            try
+            {
+                var content = string.Join("\n", GetPersonList().Select(staff =>
+                    $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender}," +
+                    $"{staff.DateOfBirth:MM/dd/yyyy},{staff.Address},{staff.PhoneNumber}," +
+                    $"{staff.Email},{staff.Username},{staff.Password}"));
+                System.IO.File.WriteAllText(filePath, content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing staff data to file: {ex.Message}");
+            }
         }
 
         // Đọc danh sách nhân viên từ file

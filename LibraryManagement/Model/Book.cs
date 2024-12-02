@@ -62,7 +62,6 @@ namespace LibraryManagement.Model
             }
         }
 
-        // Method to return the book (mark as available)
         public void ReturnBook()
         {
             if (!IsAvailable)

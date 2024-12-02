@@ -1,68 +1,89 @@
-﻿using System;
+﻿using LibraryManagement.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LibraryManagement.Controller
 {
-    internal class PersonControl<T> where T : class, new()
+    internal class PersonControl<T> where T : Person, new()
     {
-        // Danh sách các đối tượng kiểu T
         private List<T> personList;
 
-        // Constructor
         public PersonControl()
         {
             personList = new List<T>();
         }
 
-        // Thêm đối tượng kiểu T
         public void AddPerson(T person)
         {
             personList.Add(person);
         }
 
-        // Xóa đối tượng kiểu T dựa trên ID (giả định rằng kiểu T có thuộc tính Id)
         public void RemovePersonById(string id)
         {
-            T personToRemove = personList.FirstOrDefault(person => GetId(person) == id);
+            T personToRemove = personList.FirstOrDefault(person => person.GetId() == id);
             if (personToRemove != null)
             {
                 personList.Remove(personToRemove);
+                Console.WriteLine($"Person with ID '{id}' has been removed.");
             }
-        }
-
-        // Cập nhật thông tin đối tượng kiểu T dựa trên ID (giả định rằng kiểu T có thuộc tính Id)
-        public void UpdatePersonById(string id, string newInfo)
-        {
-            T personToUpdate = personList.FirstOrDefault(person => GetId(person) == id);
-            if (personToUpdate != null)
+            else
             {
-                UpdatePersonInfo(personToUpdate, newInfo);
+                Console.WriteLine($"No person found with ID '{id}'.");
             }
         }
 
-        // Hiển thị thông tin tất cả đối tượng
+
+        public void UpdatePersonById(string id)
+        {
+            T personToUpdate = null;
+
+            foreach (var person in personList)
+            {
+                if (person.GetId() == id)
+                {
+                    personToUpdate = person;
+                    break;
+                }
+            }
+        }
+
+
         public void DisplayAllPersons()
         {
             foreach (var person in personList)
             {
-                Console.WriteLine(PersonToString(person));
+                Console.WriteLine(person.ToString());
+            }
+        }
+        public void DisplayPersonDetails(string id)
+        {
+            T personToDisplay = null;
+
+            foreach (var person in personList)
+            {
+                if (person.GetId() == id)
+                {
+                    personToDisplay = person;
+                    break;
+                }
+            }
+            if (personToDisplay != null)
+            {
+                Console.WriteLine(personToDisplay.ToString());
             }
         }
 
-        // Tìm kiếm đối tượng kiểu T dựa trên ID
-        public T SearchPersonById(string id)
+        public T GetPersonById(string id)
         {
-            return personList.FirstOrDefault(person => GetId(person) == id);
+            return personList.FirstOrDefault(person => person.GetId() == id);
         }
 
-        // Lấy danh sách tất cả đối tượng
         public List<T> GetPersonList()
         {
             return personList;
         }
 
-        // Đọc danh sách đối tượng từ file (mô phỏng)
         public void ReadPersonsFromFile(string filePath)
         {
             try
@@ -86,12 +107,11 @@ namespace LibraryManagement.Controller
             }
         }
 
-        // Ghi danh sách đối tượng ra file (mô phỏng)
         public void WriteToFile(string filePath)
         {
             try
             {
-                var content = string.Join("\n", personList.Select(PersonToString));
+                var content = string.Join("\n", personList.Select(person => person.ToString()));
                 System.IO.File.WriteAllText(filePath, content);
             }
             catch (Exception ex)
@@ -99,3 +119,10 @@ namespace LibraryManagement.Controller
                 Console.WriteLine($"Error writing person data to file: {ex.Message}");
             }
         }
+
+        private T ParsePerson(string data)
+        {
+            return new T();
+        }
+    }
+}

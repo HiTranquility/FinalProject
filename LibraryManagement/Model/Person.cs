@@ -1,6 +1,6 @@
 ﻿namespace LibraryManagement.Model
 {
-    internal class Person
+    internal abstract class Person
     {
         private string name;
         private int age;
@@ -36,7 +36,7 @@
             this.username = username;
             this.password = password;
         }
-
+        public abstract string GetId();
         public override string ToString()
         {
             return $"Name: {Name}\n" +

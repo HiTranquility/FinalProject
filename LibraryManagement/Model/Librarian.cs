@@ -17,6 +17,10 @@ namespace LibraryManagement.Model
         {
 
         }
+        public override string GetId()
+        {
+            return Id; // Trả về thuộc tính `Id` của lớp `Member`
+        }
         public override string ToString()
         {
             return $"ID: {Id}\nRole: {Role}" + base.ToString();

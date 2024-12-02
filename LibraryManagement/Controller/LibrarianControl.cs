@@ -1,116 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using LibraryManagement.Model;
 
 namespace LibraryManagement.Controller
 {
-    internal class LibrarianControl
+    internal class LibrarianControl : PersonControl<Librarian>
     {
-        private List<Librarian> librarianList;
-
-        public LibrarianControl()
+        public LibrarianControl() : base()
         {
-            librarianList = new List<Librarian>();
         }
 
-        // Add a new librarian
+        // Add a new librarian (reuses AddPerson from PersonControl)
         public void AddLibrarian(Librarian librarian)
         {
-            librarianList.Add(librarian);
+            AddPerson(librarian);
             Console.WriteLine("Librarian added successfully.");
         }
 
-        // Remove a librarian by ID
+        // Remove a librarian by ID (reuses RemovePersonById from PersonControl)
         public void RemoveLibrarian(string librarianId)
         {
-            Librarian librarianToRemove = librarianList.FirstOrDefault(l => l.Id == librarianId);
-            if (librarianToRemove != null)
-            {
-                librarianList.Remove(librarianToRemove);
-                Console.WriteLine("Librarian removed successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Librarian not found.");
-            }
+            RemovePersonById(librarianId);
         }
 
-        // Update librarian's role
-        public void UpdateLibrarian(string librarianId, string newRole)
+        // Update librarian's role (reuses UpdatePerson from PersonControl)
+        public void UpdateLibrarian(string librarianId)
         {
-            Librarian librarianToUpdate = librarianList.FirstOrDefault(l => l.Id == librarianId);
-            if (librarianToUpdate != null)
-            {
-                librarianToUpdate.Role = newRole;
-                Console.WriteLine("Librarian role updated successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Librarian not found.");
-            }
+            UpdatePersonById(librarianId);
         }
 
-
-        // Display all librarians
+        // Display all librarians (reuses DisplayAllPersons from PersonControl)
         public void DisplayAllLibrarians()
         {
-            if (librarianList.Count == 0)
-            {
-                Console.WriteLine("No librarians found.");
-                return;
-            }
-
-            foreach (var librarian in librarianList)
-            {
-                Console.WriteLine(librarian.ToString());
-                Console.WriteLine("Press any key to continue to the next librarian...");
-                Console.ReadKey();  // Pause to allow the user to read the information
-            }
+            DisplayAllPersons();
         }
 
-        // Search librarian by ID
-        public void SearchLibrarianById(string librarianId)
+        public void DisplayLibrarianDetails(string id)
         {
-            Librarian librarian = librarianList.FirstOrDefault(l => l.Id == librarianId);
-            if (librarian != null)
-            {
-                Console.WriteLine(librarian.ToString());
-            }
-            else
-            {
-                Console.WriteLine("Librarian not found.");
-            }
+            DisplayPersonDetails(id);
+        }
+        public List<Librarian> GetLibrarianList()
+        {
+            return GetPersonList();
+        }
+
+        // Search for a librarian by ID (reuses SearchPerson from PersonControl)
+        public Librarian GetLibrarianById(string librarianId)
+        {
+            return GetPersonById(librarianId);
         }
 
         // Get librarian by username and password
         public Librarian GetLibrarianByUsernameAndPassword(string username, string password)
         {
-            return librarianList.FirstOrDefault(librarian => librarian.Username == username && librarian.Password == password);
+            return GetPersonList().Find(s => s.Username == username && s.Password == password);
         }
 
         // Get librarian ID by username
         public string GetIdByUsername(string username)
         {
-            if (string.IsNullOrEmpty(username))
-            {
-                return null;
-            }
-
-            var librarian = librarianList.FirstOrDefault(l => l.Username == username);
-            return librarian?.Id;
-        }
-
-        // Get a librarian by ID
-        public Librarian GetLibrarianById(string librarianId)
-        {
-            return librarianList.FirstOrDefault(librarian => librarian.Id == librarianId);
-        }
-
-        // Return the list of librarians
-        public List<Librarian> GetLibrarianList()
-        {
-            return librarianList;
+            var staff = GetPersonList().Find(s => s.Username == username);
+            return staff?.Username;
         }
     }
 }

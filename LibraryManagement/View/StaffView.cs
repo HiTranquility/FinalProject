@@ -11,7 +11,8 @@ namespace LibraryManagement.View
 {
     internal class StaffView
     {
-        // Hiển thị tất cả nhân viên
+        // Staff Function
+        #region
         public void DisplayAllStaff(List<Staff> staffList)
         {
             Console.WriteLine("---- List of Staff ----");
@@ -21,8 +22,6 @@ namespace LibraryManagement.View
             }
             Screen.WaitScreen();
         }
-
-        // Hiển thị thông tin nhân viên
         public void DisplayStaffDetails(Staff staff)
         {
             if (staff != null)
@@ -36,22 +35,6 @@ namespace LibraryManagement.View
             }
             Screen.WaitScreen();
         }
-
-        // Hiển thị thông báo thành công
-        public void DisplaySuccessMessage(string message)
-        {
-            Console.WriteLine(message);
-            Screen.WaitScreen();
-        }
-
-        // Hiển thị thông báo lỗi
-        public void DisplayErrorMessage(string message)
-        {
-            Console.WriteLine("Error: " + message);
-            Screen.WaitScreen();
-        }
-
-        // Nhận thông tin đầu vào để thêm nhân viên
         public Staff GetNewStaffInput()
         {
             Console.WriteLine("Enter Staff ID:");
@@ -99,16 +82,19 @@ namespace LibraryManagement.View
                 Password = password
             };
         }
-
-
-        // Nhận thông tin đầu vào để cập nhật nhân viên
         public void GetUpdateStaffInput(out string staffId)
         {
             Console.WriteLine("Enter Staff ID to update:");
             staffId = Console.ReadLine();
         }
-
-        // Hiển thị tất cả thành viên
+        public string GetStaffIdForRemoval()
+        {
+            Console.WriteLine("Enter Staff ID to remove:");
+            return Console.ReadLine();
+        }
+        #endregion
+        // Member Function
+        #region
         public void DisplayAllMembers(List<Member> memberList)
         {
             Console.WriteLine("---- List of Members ----");
@@ -118,8 +104,6 @@ namespace LibraryManagement.View
             }
             Screen.WaitScreen();
         }
-
-        // Hiển thị chi tiết thông tin thành viên
         public void DisplayMemberDetails(Member member)
         {
             if (member != null)
@@ -133,8 +117,6 @@ namespace LibraryManagement.View
             }
             Screen.WaitScreen();
         }
-
-        // Nhận thông tin đầu vào để thêm thành viên
         public Member GetNewMemberInput()
         {
             Console.WriteLine("Enter Member ID:");
@@ -182,21 +164,41 @@ namespace LibraryManagement.View
                 Password = password
             };
         }
-         
-        // Nhận thông tin đầu vào để cập nhật địa chỉ thành viên
         public void GetUpdateMemberInput(out string memberId)
         {
             Console.WriteLine("Enter Member ID to update:");
             memberId = Console.ReadLine();
         }
-
-        // Nhận thông tin đầu vào để xóa thành viên
         public string GetMemberIdForRemoval()
         {
             Console.WriteLine("Enter Member ID to remove:");
             return Console.ReadLine();
         }
-
+        #endregion
+        // Librarian Function
+        #region
+        public void DisplayAllLibrarian(List<Librarian> librarianList)
+        {
+            Console.WriteLine("---- List of Librarians ----");
+            foreach (var librarian in librarianList)
+            {
+                Console.WriteLine(librarian.ToString());
+            }
+            Screen.WaitScreen();
+        }
+        public void DisplayLibrarianDetails(Librarian librarian)
+        {
+            if (librarian != null)
+            {
+                Console.WriteLine("---- Member Details ----");
+                Console.WriteLine(librarian.ToString());
+            }
+            else
+            {
+                Console.WriteLine("Member not found.");
+            }
+            Screen.WaitScreen();
+        }
         public Librarian GetNewLibrarianInput()
         {
             Console.WriteLine("Enter Librarian ID:");
@@ -247,37 +249,12 @@ namespace LibraryManagement.View
                 Password = password,
             };
         }
-
-        // Nhận thông tin đầu vào để cập nhật thông tin thư viện viên
-        public void DisplayAllLibrarians(List<Librarian> librarianList)
-        {
-            Console.WriteLine("---- List of Librarians ----");
-            foreach (var librarian in librarianList)
-            {
-                Console.WriteLine(librarian.ToString());
-            }
-            Screen.WaitScreen();
-        }
-
         public void GetUpdateLibrarianInput(out string librarianId)
         {
             Console.WriteLine("Enter Librarian ID to update:");
             librarianId = Console.ReadLine();
         }
-
-        public void DisplayLibrarianDetails(Librarian librarian)
-        {
-            if (librarian != null)
-            {
-                Console.WriteLine("---- Member Details ----");
-                Console.WriteLine(librarian.ToString());
-            }
-            else
-            {
-                Console.WriteLine("Member not found.");
-            }
-            Screen.WaitScreen();
-        }
+        #endregion
 
         public static void StaffMenu(StaffControl staffControl, StaffView staffView, LibrarianControl librarianControl, MemberControl memberControl)
         {
@@ -336,31 +313,31 @@ namespace LibraryManagement.View
                 {
                     case "1":
                         Staff newStaff = staffView.GetNewStaffInput();
-                        staffControl.AddStaff(newStaff);
-                        staffView.DisplaySuccessMessage("Staff added successfully.");
+                        staffControl.AddPerson(newStaff);
+                        Screen.DisplaySuccessMessage("Staff added successfully.");
                         break;
 
                     case "2":
                         staffView.GetUpdateStaffInput(out string staffId);
-                        staffControl.UpdateStaffById(staffId);
-                        staffView.DisplaySuccessMessage("Staff updated successfully.");
+                        staffControl.UpdatePersonById(staffId);
+                        Screen.DisplaySuccessMessage("Staff updated successfully.");
                         break;
 
                     case "3":
                         Console.WriteLine("Enter Staff ID to remove:");
                         string staffIdToRemove = Console.ReadLine();
-                        staffControl.RemoveStaffById(staffIdToRemove);
-                        staffView.DisplaySuccessMessage("Staff removed successfully.");
+                        staffControl.RemovePersonById(staffIdToRemove);
+                        Screen.DisplaySuccessMessage("Staff removed successfully.");
                         break;
 
                     case "4":
-                        staffView.DisplayAllStaff(staffControl.GetStaffList());
+                        staffView.DisplayAllStaff(staffControl.GetPersonList());
                         break;
 
                     case "5":
                         Console.WriteLine("Enter Staff ID to search:");
                         string searchStaffId = Console.ReadLine();
-                        staffView.DisplayStaffDetails(staffControl.GetStaffById(searchStaffId));
+                        staffView.DisplayStaffDetails(staffControl.GetPersonById(searchStaffId));
                         break;
 
                     case "6":
@@ -396,35 +373,35 @@ namespace LibraryManagement.View
                     case "1":
                         // Add Librarian
                         Librarian newLibrarian = staffView.GetNewLibrarianInput();
-                        librarianControl.AddLibrarian(newLibrarian);
-                        staffView.DisplaySuccessMessage("Librarian added successfully.");
+                        librarianControl.AddPerson(newLibrarian);
+                        Screen.DisplaySuccessMessage("Librarian added successfully.");
                         break;
 
                     case "2":
                         // Update Librarian (Get all update details)
                         staffView.GetUpdateLibrarianInput(out string librarianId);
-                        librarianControl.UpdateLibrarian(librarianId);
-                        staffView.DisplaySuccessMessage("Librarian updated successfully.");
+                        librarianControl.UpdatePersonById(librarianId);
+                        Screen.DisplaySuccessMessage("Librarian updated successfully.");
                         break;
 
                     case "3":
                         // Remove Librarian
                         Console.WriteLine("Enter Librarian ID to remove:");
                         string librarianIdToRemove = Console.ReadLine();
-                        librarianControl.RemoveLibrarian(librarianIdToRemove);
-                        staffView.DisplaySuccessMessage("Librarian removed successfully.");
+                        librarianControl.RemovePersonById(librarianIdToRemove);
+                        Screen.DisplaySuccessMessage("Librarian removed successfully.");
                         break;
 
                     case "4":
                         // Display all Librarians
-                        staffView.DisplayAllLibrarians(librarianControl.GetLibrarianList());
+                        staffView.DisplayAllLibrarian(librarianControl.GetPersonList());
                         break;
 
                     case "5":
                         // Search Librarian by ID
                         Console.WriteLine("Enter Librarian ID to search:");
                         string searchLibrarianId = Console.ReadLine();
-                        staffView.DisplayLibrarianDetails(librarianControl.GetLibrarianById(searchLibrarianId));
+                        staffView.DisplayLibrarianDetails(librarianControl.GetPersonById(searchLibrarianId));
                         break;
 
                     case "6":
@@ -460,32 +437,32 @@ namespace LibraryManagement.View
                     case "1":
                         Console.WriteLine("Enter Member Details:");
                         Member newMember = staffView.GetNewMemberInput();
-                        memberControl.AddMember(newMember);
-                        Console.WriteLine("Member added successfully.");
+                        memberControl.AddPerson(newMember);
+                        Screen.DisplaySuccessMessage("Member added successfully.");
                         break;
 
                     case "2":
                         Console.WriteLine("Enter Member ID and new membership level:");
                         staffView.GetUpdateMemberInput(out string memberId);
-                        memberControl.UpdateMemberById(memberId);
-                        Console.WriteLine("Member updated successfully.");
+                        memberControl.UpdatePersonById(memberId);
+                        Screen.DisplaySuccessMessage("Member updated successfully.");
                         break;
 
                     case "3":
                         Console.WriteLine("Enter Member ID to remove:");
                         string memberIdToRemove = Console.ReadLine();
-                        memberControl.RemoveMemberById(memberIdToRemove);
-                        Console.WriteLine("Member removed successfully.");
+                        memberControl.RemovePersonById(memberIdToRemove);
+                        Screen.DisplaySuccessMessage("Member removed successfully.");
                         break;
 
                     case "4":
-                        staffView.DisplayAllMembers(memberControl.GetMemberList());
+                        staffView.DisplayAllMembers(memberControl.GetPersonList());
                         break;
 
                     case "5":
                         Console.WriteLine("Enter Member ID to search:");
                         string searchMemberId = Console.ReadLine();
-                        staffView.DisplayMemberDetails(memberControl.GetMemberById(searchMemberId));
+                        staffView.DisplayMemberDetails(memberControl.GetPersonById(searchMemberId));
                         break;
 
                     case "6":

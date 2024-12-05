@@ -15,11 +15,10 @@ namespace LibraryManagement.Model
         public string Role { get { return role; } set { this.role = value; } }
         public Librarian()
         {
-
         }
         public override string GetId()
         {
-            return Id; // Trả về thuộc tính `Id` của lớp `Member`
+            return Id; 
         }
         public override string ToString()
         {

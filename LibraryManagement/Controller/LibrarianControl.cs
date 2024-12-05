@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LibraryManagement.Model;
+using LibraryManagement.Util;
 
 namespace LibraryManagement.Controller
 {
@@ -8,59 +9,64 @@ namespace LibraryManagement.Controller
     {
         public LibrarianControl() : base()
         {
+            var librarianList = ReadLibrarianFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Librarian.txt");
+            foreach (var librarian in librarianList)
+            {
+                AddPerson(librarian);
+            }
+        }
+        public override void WriteToFile(string filePath)
+        {
+            try
+            {
+                var content = string.Join("\n", GetPersonList().Select(staff =>
+                    $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender}," +
+                    $"{staff.DateOfBirth:MM/dd/yyyy},{staff.Address},{staff.PhoneNumber}," +
+                    $"{staff.Email},{staff.Username},{staff.Password}"));
+                System.IO.File.WriteAllText(filePath, content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing staff data to file: {ex.Message}");
+            }
         }
 
-        // Add a new librarian (reuses AddPerson from PersonControl)
-        public void AddLibrarian(Librarian librarian)
+        public List<Librarian> ReadLibrarianFromFile(string filePath)
         {
-            AddPerson(librarian);
-            Console.WriteLine("Librarian added successfully.");
+            var librarianList = new List<Librarian>();
+            try
+            {
+                string[] lines = Read_WriteFile.Instance.ReadFile(filePath).Split('\n');
+                foreach (var line in lines)
+                {
+                    if (!string.IsNullOrEmpty(line))
+                    {
+                        var data = line.Split(':');
+                        var librarian = new Librarian
+                        {
+                            Id = data[0],
+                            Role = data[1],
+                            Name = data[2],
+                            Age = int.Parse(data[3]),
+                            Gender = data[4],
+                            DateOfBirth = DateTime.Parse(data[5]),
+                            Address = data[6],
+                            PhoneNumber = data[7],
+                            Email = data[8],
+                            Username = data[9],
+                            Password = data[10].Trim()
+                        };
+                        librarianList.Add(librarian);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading staff data from file: {ex.Message}");
+            }
+
+            return librarianList;
         }
 
-        // Remove a librarian by ID (reuses RemovePersonById from PersonControl)
-        public void RemoveLibrarian(string librarianId)
-        {
-            RemovePersonById(librarianId);
-        }
-
-        // Update librarian's role (reuses UpdatePerson from PersonControl)
-        public void UpdateLibrarian(string librarianId)
-        {
-            UpdatePersonById(librarianId);
-        }
-
-        // Display all librarians (reuses DisplayAllPersons from PersonControl)
-        public void DisplayAllLibrarians()
-        {
-            DisplayAllPersons();
-        }
-
-        public void DisplayLibrarianDetails(string id)
-        {
-            DisplayPersonDetails(id);
-        }
-        public List<Librarian> GetLibrarianList()
-        {
-            return GetPersonList();
-        }
-
-        // Search for a librarian by ID (reuses SearchPerson from PersonControl)
-        public Librarian GetLibrarianById(string librarianId)
-        {
-            return GetPersonById(librarianId);
-        }
-
-        // Get librarian by username and password
-        public Librarian GetLibrarianByUsernameAndPassword(string username, string password)
-        {
-            return GetPersonList().Find(s => s.Username == username && s.Password == password);
-        }
-
-        // Get librarian ID by username
-        public string GetIdByUsername(string username)
-        {
-            var staff = GetPersonList().Find(s => s.Username == username);
-            return staff?.Username;
-        }
     }
 }

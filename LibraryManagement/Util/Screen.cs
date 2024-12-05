@@ -11,7 +11,17 @@ namespace LibraryManagement.Util
         public static void WaitScreen()
         {
             Console.WriteLine("Press any key to continue to exit!...");
-            Console.ReadKey();  // Dừng lại cho đến khi người dùng nhấn một phím
+            Console.ReadKey(); 
+        }
+        public static void DisplaySuccessMessage(string message)
+        {
+            Console.WriteLine(message);
+            Screen.WaitScreen();
+        }
+        public static void DisplayErrorMessage(string message)
+        {
+            Console.WriteLine("Error: " + message);
+            Screen.WaitScreen();
         }
     }
 }

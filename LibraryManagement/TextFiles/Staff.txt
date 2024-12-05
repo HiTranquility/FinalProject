@@ -1,0 +1,4 @@
+S001:Staff:Jane Smith:28:Female:05/16/1996:456 Oak Rd, Townsville:234-567-8901:janesmith@email.com:janesmith:pass456
+S002:Staff:Michael Johnson:35:Male:02/05/1989:789 Pine Ln, Villagetown:345-678-9012:michaeljohnson@email.com:mjohnson:pass789
+S003:Staff:Emily Davis:40:Female:09/11/1983:101 Birch Blvd, Smalltown:456-789-0123:emilydavis@email.com:emilyd:pass321
+

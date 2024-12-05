@@ -1,69 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using LibraryManagement.Model;
+using LibraryManagement.Util;
 
 namespace LibraryManagement.Controller
 {
     internal class MemberControl : PersonControl<Member>
     {
         // Constructor
-        public MemberControl() : base() { }
-
-        // Thêm thành viên
-        public void AddMember(Member member)
+        public MemberControl() : base() 
         {
-            AddPerson(member);
+            var memberList = ReadMemberFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Member.txt");
+            foreach (var member in memberList)
+            {
+                AddPerson(member);
+            }
         }
 
-        // Xóa thành viên theo ID
-        public void RemoveMemberById(string memberId)
-        {
-            RemovePersonById(memberId);
-        }
-
-        // Cập nhật thông tin thành viên
-        public void UpdateMemberById(string memberId)
-        {
-            UpdatePersonById(memberId);
-        }
-
-        // Hiển thị tất cả thành viên
-        public void DisplayAllMembers()
-        {
-            DisplayAllPersons();
-        }
-        public void DisplayMemberDetails(string id)
-        {
-            DisplayPersonDetails(id);
-        }
-
-        // Tìm kiếm thành viên theo ID
-        public Member GetMemberById(string memberId)
-        {
-            return GetPersonById(memberId);
-        }
-
-        // Lấy danh sách thành viên
-        public List<Member> GetMemberList()
-        {
-            return GetPersonList();
-        }
-
-        // Lấy thành viên theo username và password
-        public Member GetMemberByUsernameAndPassword(string username, string password)
-        {
-            return GetPersonList().Find(m => m.Username == username && m.Password == password);
-        }
-
-        // Lấy ID thành viên theo username
-        public string GetIdByUsername(string username)
-        {
-            var staff = GetPersonList().Find(s => s.Username == username);
-            return staff?.Username;
-        }
-
-        // Ghi danh sách thành viên vào file
-        public void WriteToFile(string filePath)
+        public override void WriteToFile(string filePath)
         {
             try
             {
@@ -79,11 +33,12 @@ namespace LibraryManagement.Controller
         }
 
         // Đọc danh sách thành viên từ file
-        public void ReadMembersFromFile(string filePath)
+        public List<Member> ReadMemberFromFile(string filePath)
         {
+            var memberList = new List<Member>();
             try
             {
-                var lines = System.IO.File.ReadAllLines(filePath);
+                string[] lines = Read_WriteFile.Instance.ReadFile(filePath).Split('\n');
                 foreach (var line in lines)
                 {
                     if (!string.IsNullOrEmpty(line))
@@ -92,12 +47,18 @@ namespace LibraryManagement.Controller
                         var member = new Member
                         {
                             Id = data[0],
-                            Name = data[1],
-                            Address = data[2],
-                            PhoneNumber = data[3],
-                            Email = data[4],
-                            Username = data[5],
-                            Password = data[6]
+                            Role = data[1],
+                            Name = data[2],
+                            Age = int.Parse(data[3]),
+                            Gender = data[4],
+                            DateOfBirth = DateTime.Parse(data[5]),
+                            Address = data[6],
+                            PhoneNumber = data[7],
+                            Email = data[8],
+                            Username = data[9],
+                            Password = data[10],
+                            MembershipStartDate = DateTime.Parse(data[11]),
+                            BookLink = data[12]
                         };
                         AddPerson(member);
                     }
@@ -107,6 +68,7 @@ namespace LibraryManagement.Controller
             {
                 Console.WriteLine($"Error reading member data from file: {ex.Message}");
             }
+            return memberList;
         }
     }
 }

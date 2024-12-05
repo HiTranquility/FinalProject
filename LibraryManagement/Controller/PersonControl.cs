@@ -8,18 +8,15 @@ namespace LibraryManagement.Controller
     internal class PersonControl<T> where T : Person, new()
     {
         private List<T> personList;
-
         public PersonControl()
         {
             personList = new List<T>();
         }
-
-        public void AddPerson(T person)
+        public virtual void AddPerson(T person)
         {
             personList.Add(person);
         }
-
-        public void RemovePersonById(string id)
+        public virtual void RemovePersonById(string id)
         {
             T personToRemove = personList.FirstOrDefault(person => person.GetId() == id);
             if (personToRemove != null)
@@ -32,9 +29,7 @@ namespace LibraryManagement.Controller
                 Console.WriteLine($"No person found with ID '{id}'.");
             }
         }
-
-
-        public void UpdatePersonById(string id)
+        public virtual void UpdatePersonById(string id)
         {
             T personToUpdate = null;
 
@@ -47,16 +42,14 @@ namespace LibraryManagement.Controller
                 }
             }
         }
-
-
-        public void DisplayAllPersons()
+        public virtual void DisplayAllPersons()
         {
             foreach (var person in personList)
             {
                 Console.WriteLine(person.ToString());
             }
         }
-        public void DisplayPersonDetails(string id)
+        public virtual void DisplayPersonDetails(string id)
         {
             T personToDisplay = null;
 
@@ -73,18 +66,24 @@ namespace LibraryManagement.Controller
                 Console.WriteLine(personToDisplay.ToString());
             }
         }
-
-        public T GetPersonById(string id)
+        public virtual T GetPersonById(string id)
         {
             return personList.FirstOrDefault(person => person.GetId() == id);
         }
-
-        public List<T> GetPersonList()
+        public virtual List<T> GetPersonList()
         {
             return personList;
         }
-
-        public void ReadPersonsFromFile(string filePath)
+        public virtual string GetIdByUsername(string username)
+        {
+            var staff = GetPersonList().Find(s => s.Username == username);
+            return staff?.Username;
+        }
+        public virtual T GetPersonByUsernameAndPassword(string username, string password)
+        {
+            return GetPersonList().Find(s => s.Username == username && s.Password == password);
+        }
+        public virtual void ReadPersonsFromFile(string filePath)
         {
             try
             {
@@ -107,7 +106,7 @@ namespace LibraryManagement.Controller
             }
         }
 
-        public void WriteToFile(string filePath)
+        public virtual void WriteToFile(string filePath)
         {
             try
             {

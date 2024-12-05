@@ -12,7 +12,8 @@ namespace LibraryManagement.Controller
 
         public BookControl()
         {
-            bookList = new List<Book>();
+            var bookList = ReadBookFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Book.txt");  
+            this.bookList = bookList;
         }
 
         // Thêm sách mới
@@ -31,7 +32,6 @@ namespace LibraryManagement.Controller
             }
         }
 
-        // Cập nhật thông tin sách
         public void UpdateBook(string bookId, string newTitle, string newAuthor, string newGenre, bool newAvalability ,DateTime newPublicationDate)
         {
             Book bookToUpdate = bookList.FirstOrDefault(b => b.Id == bookId);
@@ -107,60 +107,27 @@ namespace LibraryManagement.Controller
             return bookList;
         }
 
-        // Nhập thông tin sách mới từ người dùng
-        public Book GetNewBookInput()
+        public void WriteToFile(string filePath)
         {
-            Console.WriteLine("Enter Book ID:");
-            string id = Console.ReadLine();
-            Console.WriteLine("Enter Book Title:");
-            string title = Console.ReadLine();
-            Console.WriteLine("Enter Book Author:");
-            string author = Console.ReadLine();
-            Console.WriteLine("Enter Book Genre:");
-            string genre = Console.ReadLine();
-            Console.WriteLine("Enter Publication Date (yyyy-MM-dd):");
-            bool newAvability = false;
-            DateTime publicationDate = DateTime.Parse(Console.ReadLine());
-
-            return new Book(id, title, author, genre, newAvability, publicationDate);
-        }
-
-        // Cập nhật thông tin sách
-        public void GetUpdateBookInput(out string bookId, out string newTitle, out string newAuthor, out string newGenre, out DateTime newPublicationDate)
-        {
-            Console.WriteLine("Enter Book ID to update:");
-            bookId = Console.ReadLine();
-            Console.WriteLine("Enter new Book Title:");
-            newTitle = Console.ReadLine();
-            Console.WriteLine("Enter new Book Author:");
-            newAuthor = Console.ReadLine();
-            Console.WriteLine("Enter new Book Genre:");
-            newGenre = Console.ReadLine();
-            Console.WriteLine("Enter new Publication Date (yyyy-MM-dd):");
-            newPublicationDate = DateTime.Parse(Console.ReadLine());
-        }
-
-        // Lấy ID sách để xóa
-        public string GetBookIdForRemoval()
-        {
-            Console.WriteLine("Enter Book ID to remove:");
-            return Console.ReadLine();
-        }
-        private void WriteToFile()
-        {
-            string content = "";
-            foreach (var book in bookList)
+            try
             {
-                content += $"{book.Id},{book.Title},{book.Author},{book.Genre},{book.IsAvailable},{book.PublicationDate.ToString("MM/dd/yyyy")}\n";
+                var content = string.Join("\n", bookList.Select(book =>
+                    $"{book.Id},{book.Title},{book.Author},{book.Genre},{book.IsAvailable}," +
+                    $"{book.PublicationDate:MM/dd/yyyy}"));
+
+                // Write the formatted content to the file
+                System.IO.File.WriteAllText(filePath, content);
             }
-            Read_WriteFile.Instance.WriteFile("Books.txt", content);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing book data to file: {ex.Message}");
+            }
         }
 
         // Đọc danh sách sách từ file
-        public List<Book> ReadBooksFromFile(string filePath)
+        public List<Book> ReadBookFromFile(string filePath)
         {
-            var books = new List<Book>();
-
+            var bookList = new List<Book>();
             try
             {
                 string[] lines = Read_WriteFile.Instance.ReadFile(filePath).Split('\n');
@@ -169,7 +136,6 @@ namespace LibraryManagement.Controller
                     if (!string.IsNullOrEmpty(line))
                     {
                         var data = line.Split(':');
-
                         var book = new Book
                         {
                             Id = data[0],
@@ -179,8 +145,7 @@ namespace LibraryManagement.Controller
                             IsAvailable = bool.Parse(data[4]),
                             PublicationDate = DateTime.Parse(data[5])
                         };
-                        books.Add(book);
-
+                        bookList.Add(book);
                     }
                 }
             }
@@ -189,7 +154,7 @@ namespace LibraryManagement.Controller
                 Console.WriteLine($"Error reading book data from file: {ex.Message}");
             }
 
-            return books;
+            return bookList;
         }
     }
 }

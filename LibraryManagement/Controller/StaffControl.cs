@@ -10,63 +10,14 @@ namespace LibraryManagement.Controller
         // Constructor
         public StaffControl() : base()
         {
-            // Đọc dữ liệu từ file và thêm vào danh sách
-            var staffList = ReadStaffFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\Staff.txt");
+            var staffList = ReadStaffFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Staff.txt");
             foreach (var staff in staffList)
             {
                 AddPerson(staff);
             }
         }
 
-        // Thêm nhân viên
-        public void AddStaff(Staff staff)
-        {
-            AddPerson(staff);
-        }
-
-        // Xóa nhân viên theo ID
-        public void RemoveStaffById(string staffId)
-        {
-            RemovePersonById(staffId);
-        }
-
-        // Sửa thông tin nhân viên
-        public void UpdateStaffById(string staffId)
-        {
-            UpdatePersonById(staffId);
-        }
-
-        // Hiển thị thông tin tất cả nhân viên
-        public void DisplayAllStaff()
-        {
-            DisplayAllPersons();
-        }
-        public void DisplayStaffDetails(string id)
-        {
-            DisplayPersonDetails(id);
-        }
-        public List<Staff> GetStaffList()
-        {
-            return GetPersonList();
-        }
-        // Tìm kiếm nhân viên theo ID
-        public Staff GetStaffById(string staffId)
-        {
-            return GetPersonById(staffId);
-        }
-
-        public string GetIdByUsername(string username)
-        {
-            var staff = GetPersonList().Find(s => s.Username == username);
-            return staff?.Username;
-        }
-
-        public Staff GetStaffByUsernameAndPassword(string username, string password)
-        {
-            return GetPersonList().Find(s => s.Username == username && s.Password == password);
-        }
-
-        public void WriteToFile(string filePath)
+        public override void WriteToFile(string filePath)
         {
             try
             {
@@ -82,7 +33,6 @@ namespace LibraryManagement.Controller
             }
         }
 
-        // Đọc danh sách nhân viên từ file
         public List<Staff> ReadStaffFromFile(string filePath)
         {
             var staffList = new List<Staff>();

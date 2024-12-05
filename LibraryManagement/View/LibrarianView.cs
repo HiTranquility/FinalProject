@@ -8,22 +8,8 @@ namespace LibraryManagement.View
 {
     internal class LibrarianView
     {
-        // Display a success message
-        public void DisplaySuccessMessage(string message)
-        {
-            Console.WriteLine(message);
-            Screen.WaitScreen();
-        }
-
-        // Display an error message
-        public void DisplayErrorMessage(string message)
-        {
-            Console.WriteLine("Error: " + message);
-            Screen.WaitScreen();
-        }
-
         // Display all books
-        public void DisplayAllBooks(List<Book> bookList)
+        public void DisplayAllBook(List<Book> bookList)
         {
             Console.WriteLine("---- List of Books ----");
             foreach (var book in bookList)
@@ -32,7 +18,6 @@ namespace LibraryManagement.View
             }
             Screen.WaitScreen();
         }
-
         // Display details of a single book
         public void DisplayBookDetails(Book book)
         {
@@ -141,23 +126,23 @@ namespace LibraryManagement.View
                     case "1":
                         Book newBook = librarianView.GetNewBookInput();
                         bookControl.AddBook(newBook);
-                        librarianView.DisplaySuccessMessage("Book added successfully.");
+                        Screen.DisplaySuccessMessage("Book added successfully.");
                         break;
 
                     case "2":
                         librarianView.GetUpdateBookInput(out string bookId, out string newTitle, out string newAuthor, out string newGenre, out bool newAvailability, out DateTime newPublicationDate);
                         bookControl.UpdateBook(bookId, newTitle, newAuthor, newGenre, newAvailability, newPublicationDate);
-                        librarianView.DisplaySuccessMessage("Book updated successfully.");
+                        Screen.DisplaySuccessMessage("Book updated successfully.");
                         break;
 
                     case "3":
                         string bookIdToRemove = librarianView.GetBookIdForRemoval();
                         bookControl.RemoveBook(bookIdToRemove);
-                        librarianView.DisplaySuccessMessage("Book removed successfully.");
+                        Screen.DisplaySuccessMessage("Book removed successfully.");
                         break;
 
                     case "4":
-                        librarianView.DisplayAllBooks(bookControl.GetBookList());
+                        librarianView.DisplayAllBook(bookControl.GetBookList());
                         break;
 
                     case "5":

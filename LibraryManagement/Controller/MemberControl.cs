@@ -10,7 +10,14 @@ namespace LibraryManagement.Controller
         // Constructor
         public MemberControl() : base() 
         {
-            var memberList = ReadMemberFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Member.txt");
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Navigate up two levels to the project root
+            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
+            // Construct the file path outside bin/Debug
+            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Member.txt");
+
+            // Read the staff list from the relative file path
+            var memberList = ReadMemberFromFile(filePath);
             foreach (var member in memberList)
             {
                 AddPerson(member);
@@ -58,7 +65,13 @@ namespace LibraryManagement.Controller
                             MembershipStartDate = DateTime.Parse(data[11]),
                             BookLink = data[12]
                         };
-                        var borrowedBooks = member.ReadBorrowedBooksFromFile($"C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\BookFiles\\{member.BookLink}");
+                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                        // Navigate up two levels to the project root
+                        string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
+                        // Construct the file path outside bin/Debug
+                        string bookPath = System.IO.Path.Combine(projectRoot, "TextFiles", member.BookLink);
+
+                        var borrowedBooks = member.ReadBorrowedBooksFromFile(bookPath);
                         member.BorrowedBooks = borrowedBooks;
                         AddPerson(member);
                     }

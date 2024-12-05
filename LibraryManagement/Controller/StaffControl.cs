@@ -10,7 +10,12 @@ namespace LibraryManagement.Controller
         // Constructor
         public StaffControl() : base()
         {
-            var staffList = ReadStaffFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Staff.txt");
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Navigate up two levels to the project root
+            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
+            // Construct the file path outside bin/Debug
+            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Staff.txt");
+            var staffList = ReadStaffFromFile(filePath);
             foreach (var staff in staffList)
             {
                 AddPerson(staff);

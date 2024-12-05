@@ -60,7 +60,7 @@ namespace LibraryManagement
                         Console.WriteLine("Made by: ");
                         Console.WriteLine("22110060 - Nguyen Tan Phat");
                         Console.WriteLine("22110051 - Nguyen Huu Nghi");
-                        Console.WriteLine("221100 - Le Cong Bao");
+                        Console.WriteLine("22110009 - Le Cong Bao");
                         Screen.WaitScreen();
                         break;
                     case "3":

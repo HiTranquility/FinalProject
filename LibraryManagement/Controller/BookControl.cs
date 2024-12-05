@@ -12,7 +12,13 @@ namespace LibraryManagement.Controller
 
         public BookControl()
         {
-            var bookList = ReadBookFromFile("C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\TextFiles\\Book.txt");  
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Navigate up two levels to the project root
+            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
+            // Construct the file path outside bin/Debug
+            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Book.txt");
+
+            var bookList = ReadBookFromFile(filePath);
             this.bookList = bookList;
         }
 

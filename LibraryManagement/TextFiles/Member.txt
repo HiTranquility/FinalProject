@@ -1,6 +1,6 @@
-M001:Member:Chris Wilson:32:Male:08/08/1991:202 Maple Ave, Cityplace:567-890-1234:chriswilson@email.com:cwilson:secure123:03/10/2023:M001-cwilson
-M002:Member:Sarah Lee:29:Female:03/22/1994:345 Spruce St, Capitol City:678-901-2345:sarahlee@email.com:slee:password123:06/25/2023:M002-slee
-M003:Member:Daniel Martinez:31:Male:12/15/1992:456 Cedar Dr, Riverside:789-012-3456:danielmartinez@email.com:dmartinez:abc123:07/15/2023:M003-dmartinez
-M004:Member:Laura Kim:27:Female:04/03/1997:567 Aspen Way, Mountainview:890-123-4567:laurakim@email.com:lkim:kimpass:09/05/2023:M004-lkim
-M005:Member:James Brown:36:Male:01/10/1988:678 Pine Ct, Lakeside:901-234-5678:jamesbrown@email.com:jbrown:123secure:02/20/2023:M005-jbrown
-M006:Member:Olivia Harris:25:Female:11/20/1998:789 Oakwood Dr, Greenfield:012-345-6789:oliviaharris@email.com:oharris:password456:04/30/2023:M006-oharris
+M001:Member:Chris Wilson:32:Male:08/08/1991:202 Maple Ave, Cityplace:567-890-1234:chriswilson@email.com:cwilson:secure123:03/10/2023:M001-cwilson.txt
+M002:Member:Sarah Lee:29:Female:03/22/1994:345 Spruce St, Capitol City:678-901-2345:sarahlee@email.com:slee:password123:06/25/2023:M002-slee.txt
+M003:Member:Daniel Martinez:31:Male:12/15/1992:456 Cedar Dr, Riverside:789-012-3456:danielmartinez@email.com:dmartinez:abc123:07/15/2023:M003-dmartinez.txt
+M004:Member:Laura Kim:27:Female:04/03/1997:567 Aspen Way, Mountainview:890-123-4567:laurakim@email.com:lkim:kimpass:09/05/2023:M004-lkim.txt
+M005:Member:James Brown:36:Male:01/10/1988:678 Pine Ct, Lakeside:901-234-5678:jamesbrown@email.com:jbrown:123secure:02/20/2023:M005-jbrown.txt
+M006:Member:Olivia Harris:25:Female:11/20/1998:789 Oakwood Dr, Greenfield:012-345-6789:oliviaharris@email.com:oharris:password456:04/30/2023:M006-oharris.txt

@@ -35,6 +35,27 @@ namespace LibraryManagement.Model
                    $"Role: {Role}\n" +
                    $"Membership Start Date: {MembershipStartDate.ToShortDateString()}\n";
         }
+        public void DisplayBorrowedBookDetails()
+        {
+            if (borrowedBooks.Count == 0)
+            {
+                Console.WriteLine("You have not borrowed any books.");
+                return;
+            }
+
+            Console.WriteLine("------ Borrowed Books ------");
+            foreach (var book in borrowedBooks)
+            {
+                Console.WriteLine($"Book ID: {book.Id}");
+                Console.WriteLine($"Title: {book.Title}");
+                Console.WriteLine($"Author: {book.Author}");
+                Console.WriteLine($"Genre: {book.Genre}");
+                Console.WriteLine($"Available: {(book.IsAvailable ? "Yes" : "No")}");
+                Console.WriteLine($"Publication Date: {book.PublicationDate:MM/dd/yyyy}");
+                Console.WriteLine("---------------------------");
+            }
+        }
+
         public void WriteToFile(string filePath)
         {
             try
@@ -70,8 +91,7 @@ namespace LibraryManagement.Model
                             Title = data[1],
                             Author = data[2],
                             Genre = data[3],
-                            IsAvailable = bool.Parse(data[4]),
-                            PublicationDate = DateTime.Parse(data[5])
+                            PublicationDate = DateTime.Parse(data[4])
                         };
                         bookList.Add(book);
                     }

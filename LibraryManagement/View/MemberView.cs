@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LibraryManagement.Controller;
 using LibraryManagement.Model;
+using LibraryManagement.Util;
 
 namespace LibraryManagement.View
 {
@@ -23,7 +24,7 @@ namespace LibraryManagement.View
                 Console.WriteLine("1. View My Information");
                 Console.WriteLine("2. Borrow Book");
                 Console.WriteLine("3. Return Book");
-                Console.WriteLine("4. View Nu  Borrowed Books");
+                Console.WriteLine("4. View all Borrowed Books");
                 Console.WriteLine("5. Back to Main Menu");
                 Console.Write("Choose an option (1-5): ");
 
@@ -48,10 +49,8 @@ namespace LibraryManagement.View
                         break;
 
                     case "4":
-                        //int borrowedBooksCount = memberControl.GetBorrowedBooksCount(currentMember.GetId());
-                        //Console.WriteLine($"You have currently borrowed {borrowedBooksCount} books.");
-                        //Console.WriteLine("Press any key to continue...");
-                        //Console.ReadKey();
+                        memberControl.GetPersonById(userID).DisplayBorrowedBookDetails();
+                        Screen.WaitScreen();
                         break;
 
                     case "5":

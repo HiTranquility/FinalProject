@@ -77,7 +77,7 @@ namespace LibraryManagement.Controller
         public virtual string GetIdByUsername(string username)
         {
             var staff = GetPersonList().Find(s => s.Username == username);
-            return staff?.Username;
+            return staff?.GetId();
         }
         public virtual T GetPersonByUsernameAndPassword(string username, string password)
         {

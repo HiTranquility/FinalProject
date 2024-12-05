@@ -16,7 +16,6 @@ namespace LibraryManagement.Controller
                 AddPerson(member);
             }
         }
-
         public override void WriteToFile(string filePath)
         {
             try
@@ -31,7 +30,6 @@ namespace LibraryManagement.Controller
                 Console.WriteLine($"Error writing member data to file: {ex.Message}");
             }
         }
-
         // Đọc danh sách thành viên từ file
         public List<Member> ReadMemberFromFile(string filePath)
         {

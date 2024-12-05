@@ -10,7 +10,7 @@ namespace LibraryManagement.Model
         private string role;
         private DateTime membershipStartDate;
         private string bookLink;
-        private List<Book> borrowedBooks = new List<Book>();
+        private List<Book> borrowedBooks;
 
         public string Id { get { return id; } set { this.id = value; } }
         public string Role { get { return role; } set { this.role = value; } }
@@ -20,8 +20,7 @@ namespace LibraryManagement.Model
 
         public Member()
         {
-            var borrowedBooks = ReadBorrowedBooksFromFile($"C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\BookFiles\\{bookLink}");
-            this.borrowedBooks = borrowedBooks;
+            borrowedBooks = new List<Book>();
         }
         public override string GetId()
         {

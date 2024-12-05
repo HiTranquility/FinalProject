@@ -58,6 +58,8 @@ namespace LibraryManagement.Controller
                             MembershipStartDate = DateTime.Parse(data[11]),
                             BookLink = data[12]
                         };
+                        var borrowedBooks = member.ReadBorrowedBooksFromFile($"C:\\Users\\Admin\\Downloads\\OOP\\FinalProject\\LibraryManagement\\BookFiles\\{member.BookLink}");
+                        member.BorrowedBooks = borrowedBooks;
                         AddPerson(member);
                     }
                 }

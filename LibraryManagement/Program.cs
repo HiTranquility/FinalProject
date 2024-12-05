@@ -10,7 +10,7 @@ namespace LibraryManagement
     {
         static void Main(string[] args)
         {
-            // Khởi tạo các đối tượng của Controller và View
+
             StaffControl staffControl = new StaffControl();
             LibrarianControl librarianControl = new LibrarianControl();
             MemberControl memberControl = new MemberControl();
@@ -59,7 +59,7 @@ namespace LibraryManagement
                         Console.WriteLine("Project: Library Management");
                         Console.WriteLine("Made by: ");
                         Console.WriteLine("22110060 - Nguyen Tan Phat");
-                        Console.WriteLine("22110051 - Nguyen Huu Nghi");
+                        Console.WriteLine("22110054 - Nguyen Huu Nghi");
                         Console.WriteLine("22110009 - Le Cong Bao");
                         Screen.WaitScreen();
                         break;
@@ -88,8 +88,6 @@ namespace LibraryManagement
             {
                 userRole = "Staff";
                 userID = staffControl.GetIdByUsername(username);
-                Console.WriteLine("Staff logged in successfully!");
-                Screen.WaitScreen();
                 return true;
             }
             Librarian librarian = librarianControl.GetPersonByUsernameAndPassword(username, password);
@@ -97,8 +95,6 @@ namespace LibraryManagement
             {
                 userRole = "Librarian";
                 userID = staffControl.GetIdByUsername(username);
-                Console.WriteLine("Librarian logged in successfully!");
-                Screen.WaitScreen();
                 return true;
             }
             Member member = memberControl.GetPersonByUsernameAndPassword(username, password);
@@ -106,13 +102,12 @@ namespace LibraryManagement
             {
                 userRole = "Member";
                 userID = memberControl.GetIdByUsername(username);
-                Console.WriteLine("Member logged in successfully!");
-                Screen.WaitScreen();
                 return true;
             }
             userRole = null;
             userID = null;
             Console.WriteLine("Invalid credentials. Please try again.");
+            Screen.WaitScreen();
             return false;
         }
     }

@@ -27,4 +27,3 @@ B026:The Little Prince:Antoine de Saint-Exupéry:Children's Literature:True:04/0
 B027:The Great Alone:Kristin Hannah:Historical Fiction:True:02/06/2018
 B028:The Silent Patient:Alex Michaelides:Mystery:True:02/05/2019
 B029:Where the Crawdads Sing:Delia Owens:Historical Fiction:True:08/14/2018
-B030:The Night Circus:Erin Morgenstern:Fantasy:True:09/13/2011

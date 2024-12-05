@@ -18,9 +18,40 @@ namespace LibraryManagement.Controller
         }
 
         // Thêm sách mới
+        private string GenerateNextBookId()
+        {
+            // Get the list of all book IDs that start with "B"
+            var existingIds = bookList.Select(b => b.Id)
+                                      .Where(id => id.StartsWith("B"))
+                                      .Select(id => int.Parse(id.Substring(1))) // Extract numeric part
+                                      .OrderBy(id => id) // Ensure it's sorted
+                                      .ToList();
+
+            // Find the first missing ID in the sequence
+            int nextId = 1; // Start with 1 (corresponding to B001)
+            foreach (var id in existingIds)
+            {
+                if (id != nextId) // If the current ID is not the next expected ID
+                {
+                    break; // Found the gap, no need to check further
+                }
+                nextId++; // If there's no gap, move to the next ID
+            }
+
+            // Now we return the ID for the next book, which will fill any gaps in the sequence
+            return "B" + nextId.ToString("D3");
+        }
+
+
         public void AddBook(Book book)
         {
+            if (string.IsNullOrEmpty(book.Id))
+            {
+                book.Id = GenerateNextBookId();
+            }
+
             bookList.Add(book);
+            Console.WriteLine($"Book with ID {book.Id} added successfully.");
         }
 
         // Xóa sách theo ID

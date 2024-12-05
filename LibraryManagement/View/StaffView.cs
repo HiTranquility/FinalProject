@@ -37,8 +37,6 @@ namespace LibraryManagement.View
         }
         public Staff GetNewStaffInput()
         {
-            Console.WriteLine("Enter Staff ID:");
-            string id = Console.ReadLine();
 
             Console.WriteLine("Enter Staff Name:");
             string name = Console.ReadLine();
@@ -69,7 +67,6 @@ namespace LibraryManagement.View
 
             return new Staff
             {
-                Id = id,
                 Role = "staff",
                 Name = name,
                 Age = age,
@@ -119,9 +116,6 @@ namespace LibraryManagement.View
         }
         public Member GetNewMemberInput()
         {
-            Console.WriteLine("Enter Member ID:");
-            string id = Console.ReadLine();
-
             Console.WriteLine("Enter Member Name:");
             string name = Console.ReadLine();
 
@@ -151,7 +145,6 @@ namespace LibraryManagement.View
 
             return new Member
             {
-                Id = id,
                 Role = "member",
                 Name = name,
                 Age = age,
@@ -200,10 +193,7 @@ namespace LibraryManagement.View
             Screen.WaitScreen();
         }
         public Librarian GetNewLibrarianInput()
-        {
-            Console.WriteLine("Enter Librarian ID:");
-            string id = Console.ReadLine();
-
+        { 
             Console.WriteLine("Enter Librarian Name:");
             string name = Console.ReadLine();
 
@@ -236,7 +226,6 @@ namespace LibraryManagement.View
 
             return new Librarian
             {
-                Id = id,
                 Role = "librarian",
                 Name = name,
                 Age = age,

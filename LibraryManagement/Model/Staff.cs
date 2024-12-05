@@ -22,5 +22,9 @@ namespace LibraryManagement.Model
         {
             return Id; 
         }
+        public override void SetId(string id)
+        {
+            this.id = id;
+        }
     }
 }

@@ -37,6 +37,7 @@
             this.password = password;
         }
         public abstract string GetId();
+        public abstract void SetId(string id);
         public override string ToString()
         {
             return $"Name: {Name}\n" +

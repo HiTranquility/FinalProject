@@ -35,10 +35,7 @@ namespace LibraryManagement.View
 
         // Get input to add a new book
         public Book GetNewBookInput()
-        {
-            Console.WriteLine("Enter Book ID:");
-            string id = Console.ReadLine();
-
+        { 
             Console.WriteLine("Enter Book Title:");
             string title = Console.ReadLine();
 
@@ -57,7 +54,6 @@ namespace LibraryManagement.View
 
             return new Book
             {
-                Id = id,
                 Title = title,
                 Author = author,
                 Genre = genre,
@@ -118,7 +114,7 @@ namespace LibraryManagement.View
                 Console.WriteLine("5. Search Book by ID");
                 Console.WriteLine("6. Set Avalability by ID");
                 Console.WriteLine("7. Back to Main Menu");
-                Console.Write("Choose an option (1-6): ");
+                Console.Write("Choose an option (1-7): ");
 
                 string choice = Console.ReadLine();
 

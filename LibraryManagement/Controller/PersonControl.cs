@@ -12,8 +12,34 @@ namespace LibraryManagement.Controller
         {
             personList = new List<T>();
         }
+        private string GenerateNextPersonId(string prefix)
+        {
+            // Find the highest personId currently in the list that starts with the given prefix
+            var maxId = personList.Select(p => p.GetId())
+                                  .Where(id => id.StartsWith(prefix))  // Filter by the given prefix (e.g., "P", "M", "L", etc.)
+                                  .Select(id =>
+                                  {
+                                      // Safely extract and parse the numeric part after the prefix
+                                      string numericPart = id.Substring(prefix.Length);
+                                      return int.TryParse(numericPart, out var result) ? result : 0;
+                                  })
+                                  .DefaultIfEmpty(0)  // If no matching IDs, start from 0
+                                  .Max();
+
+            // Increment the maxId and format it as a 3-digit number with the given prefix
+            return prefix + (maxId + 1).ToString("D3");
+        }
+
+
+        // Add a person and automatically assign an Id if not provided
         public virtual void AddPerson(T person)
         {
+            if (string.IsNullOrEmpty(person.GetId()))
+            {
+                string prefix = person.GetType().Name.Substring(0, 1).ToUpper();  // Get the first letter of the class name (e.g., "M" for Member, "L" for Librarian)
+                person.SetId(GenerateNextPersonId(prefix));  // Generate the next ID using the prefix
+            }
+
             personList.Add(person);
         }
         public virtual void RemovePersonById(string id)

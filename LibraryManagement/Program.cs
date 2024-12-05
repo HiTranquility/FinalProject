@@ -24,12 +24,14 @@ namespace LibraryManagement
             while (!exit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Library Management System ------");
-                Console.WriteLine("1. Login");
-                Console.WriteLine("2. See credits");
-                Console.WriteLine("3. Exit");
-                Console.Write("Choose an option (1-3): ");
-
+                 Console.WriteLine("====================================");
+                 Console.WriteLine("      Library Management System    ");
+                 Console.WriteLine("====================================");
+                 Console.WriteLine($"| 1. Login                         |");
+                 Console.WriteLine($"| 2. See Credits                   |");
+                 Console.WriteLine($"| 3. Exit                          |");
+                 Console.WriteLine("====================================");
+                 Console.Write("Choose an option (1-3): ");
                 string choice = Console.ReadLine();
 
                 switch (choice)
@@ -56,10 +58,15 @@ namespace LibraryManagement
                         }
                         break;
                     case "2":
-                        Console.WriteLine("Project: Library Management");
-                        Console.WriteLine("Made by: ");
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("╔════════════════════════════════════╗");
+                        Console.WriteLine("║      Project: Library Management   ║");
+                        Console.WriteLine("╚════════════════════════════════════╝");
+                        Console.ResetColor();
+                        Console.WriteLine("Made by:");
                         Console.WriteLine("22110060 - Nguyen Tan Phat");
-                        Console.WriteLine("22110054 - Nguyen Huu Nghi");
+                        Console.WriteLine("22110051 - Nguyen Huu Nghi");
                         Console.WriteLine("22110009 - Le Cong Bao");
                         Screen.WaitScreen();
                         break;
@@ -77,7 +84,9 @@ namespace LibraryManagement
         public static bool Login(StaffControl staffControl, LibrarianControl librarianControl ,MemberControl memberControl, out string userRole, out string userID)
         {
             Console.Clear();
-            Console.WriteLine("------ Login ------");
+            Console.WriteLine("====================================");
+            Console.WriteLine("             Login                  ");
+            Console.WriteLine("====================================");
             Console.Write("Enter Username: ");
             string username = Console.ReadLine();
             Console.Write("Enter Password: ");

@@ -15,17 +15,32 @@ namespace LibraryManagement.View
         {
             bool memberExit = false;
             Member currentMember = memberControl.GetPersonById(userID);
-
+            if (currentMember != null)
+            {
+                Console.WriteLine("Member logged in successfully!");
+                userID = currentMember.Id; // Lưu userID từ thành viên đã đăng nhập
+            }
+            else
+            {
+                Console.WriteLine("Member not found! Please check your Username or Password.");
+                Console.WriteLine("Press any key to return to the main menu...");
+                Console.ReadKey();
+                // Quay lại menu chính
+                return;
+            }            
 
             while (!memberExit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Member Menu ------");
-                Console.WriteLine("1. View My Information");
-                Console.WriteLine("2. Borrow Book");
-                Console.WriteLine("3. Return Book");
-                Console.WriteLine("4. View all Borrowed Books");
-                Console.WriteLine("5. Back to Main Menu");
+                Console.WriteLine("====================================");
+                Console.WriteLine("         Member Menu               ");
+                Console.WriteLine("====================================");
+                Console.WriteLine($"| 1. View My Information           |");
+                Console.WriteLine($"| 2. Borrow Book                   |");
+                Console.WriteLine($"| 3. Return Book                   |");
+                Console.WriteLine($"| 4. View All Borrowed Books       |");
+                Console.WriteLine($"| 5. Back to Main Menu             |");
+                Console.WriteLine("====================================");
                 Console.Write("Choose an option (1-5): ");
 
                 string choice = Console.ReadLine();

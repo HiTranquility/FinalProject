@@ -112,6 +112,11 @@ namespace LibraryManagement.Controller
         {
             return bookList;
         }
+        public void SetAvailability(string bookId, bool isAvailable)
+        {
+            Book bookToUpdate = bookList.FirstOrDefault(b => b.Id == bookId);
+            if (bookToUpdate != null) bookToUpdate.IsAvailable = isAvailable; 
+        }
 
         public void WriteToFile(string filePath)
         {

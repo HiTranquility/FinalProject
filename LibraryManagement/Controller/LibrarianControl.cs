@@ -10,12 +10,9 @@ namespace LibraryManagement.Controller
         public LibrarianControl() : base()
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            // Navigate up two levels to the project root
             string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            // Construct the file path outside bin/Debug
             string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Librarian.txt");
 
-            // Read the staff list from the relative file path
             var librarianList = ReadLibrarianFromFile(filePath);
             foreach (var librarian in librarianList)
             {
@@ -73,7 +70,7 @@ namespace LibraryManagement.Controller
             }
 
             return librarianList;
-        }
+        } 
 
     }
 }

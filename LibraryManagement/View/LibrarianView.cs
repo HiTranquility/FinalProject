@@ -116,7 +116,8 @@ namespace LibraryManagement.View
                 Console.WriteLine("3. Remove Book");
                 Console.WriteLine("4. Display All Books");
                 Console.WriteLine("5. Search Book by ID");
-                Console.WriteLine("6. Back to Main Menu");
+                Console.WriteLine("6. Set Avalability by ID");
+                Console.WriteLine("7. Back to Main Menu");
                 Console.Write("Choose an option (1-6): ");
 
                 string choice = Console.ReadLine();
@@ -150,8 +151,14 @@ namespace LibraryManagement.View
                         Book book = bookControl.GetBookById(bookIdToSearch);
                         librarianView.DisplayBookDetails(book);
                         break;
-
                     case "6":
+                        string bookIdToSet = librarianView.GetBookIdForSearch();
+                        Console.WriteLine("Type yes/no to set Availability: ");
+                        string availabilityInput = Console.ReadLine().Trim().ToLower();
+                        bool availability = availabilityInput == "yes";
+                        bookControl.SetAvailability(bookIdToSet, availability);
+                        break;
+                    case "7":
                         librarianExit = true;
                         break;
 

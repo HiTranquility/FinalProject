@@ -11,9 +11,7 @@ namespace LibraryManagement.Controller
         public MemberControl() : base() 
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            // Navigate up two levels to the project root
             string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            // Construct the file path outside bin/Debug
             string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Member.txt");
 
             // Read the staff list from the relative file path
@@ -63,13 +61,13 @@ namespace LibraryManagement.Controller
                             Username = data[9],
                             Password = data[10],
                             MembershipStartDate = DateTime.Parse(data[11]),
-                            BookLink = data[12]
+                            BookLink = data[12].Trim()
                         };
                         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                         // Navigate up two levels to the project root
                         string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
                         // Construct the file path outside bin/Debug
-                        string bookPath = System.IO.Path.Combine(projectRoot, "TextFiles", member.BookLink);
+                        string bookPath = System.IO.Path.Combine(projectRoot, "BookFiles", member.BookLink);
 
                         var borrowedBooks = member.ReadBorrowedBooksFromFile(bookPath);
                         member.BorrowedBooks = borrowedBooks;

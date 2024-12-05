@@ -91,17 +91,17 @@ namespace LibraryManagement.Model
             }
 
             Console.WriteLine("------ Borrowed Books ------");
+            Console.WriteLine("+------------+---------------------------+---------------------+-----------------+------------+------------------+");
+            Console.WriteLine("| Book ID    | Title                     | Author              | Genre           | Available  | Publication Date |");
+            Console.WriteLine("+------------+---------------------------+---------------------+-----------------+------------+------------------+");
+            // Looping through the borrowed books and displaying the details in a table format
             foreach (var book in borrowedBooks)
             {
-                Console.WriteLine($"Book ID: {book.Id}");
-                Console.WriteLine($"Title: {book.Title}");
-                Console.WriteLine($"Author: {book.Author}");
-                Console.WriteLine($"Genre: {book.Genre}");
-                Console.WriteLine($"Publication Date: {book.PublicationDate:MM/dd/yyyy}");
-                Console.WriteLine("---------------------------");
+                Console.WriteLine($"| {book.Id,-10} | {book.Title,-25} | {book.Author,-19} | {book.Genre,-15} | {(book.IsAvailable ? "Yes" : "No"),-10} | {book.PublicationDate:MM/dd/yyyy,-16} |");
             }
+            // Closing the table with a border
+            Console.WriteLine("+------------+---------------------------+---------------------+-----------------+------------+------------------+");
         }
-
         public void WriteToFile(string filePath)
         {
             try

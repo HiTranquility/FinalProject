@@ -141,7 +141,7 @@ namespace LibraryManagement.View
             int ageWidth = 5;
             int genderWidth = 10;
             int dobWidth = 15;
-            int addressWidth = 27;
+            int addressWidth = 30;
             int phoneWidth = 15;
             int emailWidth = 25;
 
@@ -253,14 +253,14 @@ namespace LibraryManagement.View
             Console.WriteLine("---- List of Librarians ----");
 
             // Define column widths for better alignment
-            int idWidth = 5;
-            int nameWidth = 17;
+            int idWidth = 7;
+            int nameWidth = 15;
             int ageWidth = 5;
             int genderWidth = 10;
             int dobWidth = 15;
-            int addressWidth = 27;
+            int addressWidth = 24;
             int phoneWidth = 15;
-            int emailWidth = 25;
+            int emailWidth = 27;
             int roleWidth = 15;
             // Print table headers
             Console.WriteLine(

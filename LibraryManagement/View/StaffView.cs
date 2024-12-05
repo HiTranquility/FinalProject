@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,27 +16,65 @@ namespace LibraryManagement.View
         public void DisplayAllStaff(List<Staff> staffList)
         {
             Console.WriteLine("---- List of Staff ----");
+
+            // Define column widths for better alignment
+            int idWidth = 5;
+            int nameWidth = 17;
+            int ageWidth = 5;
+            int genderWidth = 10;
+            int dobWidth = 15;
+            int addressWidth = 27;
+            int phoneWidth = 15;
+            int emailWidth = 25;
+
+            // Print table headers
+            Console.WriteLine(
+                $"{"ID".PadRight(idWidth)}{"Name".PadRight(nameWidth)}{"Age".PadRight(ageWidth)}{"Gender".PadRight(genderWidth)}{"DOB".PadRight(dobWidth)}{"Address".PadRight(addressWidth)}{"Phone Number".PadRight(phoneWidth)}{"Email".PadRight(emailWidth)}"
+            );
+
             foreach (var staff in staffList)
             {
-                Console.WriteLine(staff.ToString());
+                // Print each staff's details
+                Console.WriteLine(
+                    $"{staff.Id.PadRight(idWidth)}{staff.Name.PadRight(nameWidth)}{staff.Age.ToString().PadRight(ageWidth)}{staff.Gender.PadRight(genderWidth)}{staff.DateOfBirth.ToString("yyyy-MM-dd").PadRight(dobWidth)}{staff.Address.PadRight(addressWidth)}{staff.PhoneNumber.PadRight(phoneWidth)}{staff.Email.PadRight(emailWidth)}"
+                );
             }
+
             Screen.WaitScreen();
         }
+
         public void DisplayStaffDetails(Staff staff)
         {
             if (staff != null)
             {
                 Console.WriteLine("---- Staff Details ----");
-                Console.WriteLine(staff.ToString());
+
+                // Define column widths for better alignment
+                int labelWidth = 15;
+                int valueWidth = 30;
+
+                // Display staff details with label and value aligned
+                Console.WriteLine($"{"ID:".PadRight(labelWidth)}{staff.Id.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Name:".PadRight(labelWidth)}{staff.Name.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Age:".PadRight(labelWidth)}{staff.Age.ToString().PadRight(valueWidth)}");
+                Console.WriteLine($"{"Gender:".PadRight(labelWidth)}{staff.Gender.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Date of Birth:".PadRight(labelWidth)}{staff.DateOfBirth.ToString("yyyy-MM-dd").PadRight(valueWidth)}");
+                Console.WriteLine($"{"Address:".PadRight(labelWidth)}{staff.Address.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Phone Number:".PadRight(labelWidth)}{staff.PhoneNumber.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Email:".PadRight(labelWidth)}{staff.Email.PadRight(valueWidth)}");
             }
             else
             {
                 Console.WriteLine("Staff not found.");
             }
+
             Screen.WaitScreen();
         }
+
         public Staff GetNewStaffInput()
         {
+            Console.WriteLine("Enter Staff ID:");
+            string id = Console.ReadLine();
 
             Console.WriteLine("Enter Staff Name:");
             string name = Console.ReadLine();
@@ -67,6 +105,7 @@ namespace LibraryManagement.View
 
             return new Staff
             {
+                Id = id,
                 Role = "staff",
                 Name = name,
                 Age = age,
@@ -95,27 +134,65 @@ namespace LibraryManagement.View
         public void DisplayAllMembers(List<Member> memberList)
         {
             Console.WriteLine("---- List of Members ----");
+
+            // Define column widths for better alignment
+            int idWidth = 5;
+            int nameWidth = 17;
+            int ageWidth = 5;
+            int genderWidth = 10;
+            int dobWidth = 15;
+            int addressWidth = 27;
+            int phoneWidth = 15;
+            int emailWidth = 25;
+
+            // Print table headers
+            Console.WriteLine(
+                $"{"ID".PadRight(idWidth)}{"Name".PadRight(nameWidth)}{"Age".PadRight(ageWidth)}{"Gender".PadRight(genderWidth)}{"DOB".PadRight(dobWidth)}{"Address".PadRight(addressWidth)}{"Phone Number".PadRight(phoneWidth)}{"Email".PadRight(emailWidth)}"
+            );
+
             foreach (var member in memberList)
             {
-                Console.WriteLine(member.ToString());
+                // Print each member's details
+                Console.WriteLine(
+                    $"{member.Id.PadRight(idWidth)}{member.Name.PadRight(nameWidth)}{member.Age.ToString().PadRight(ageWidth)}{member.Gender.PadRight(genderWidth)}{member.DateOfBirth.ToString("yyyy-MM-dd").PadRight(dobWidth)}{member.Address.PadRight(addressWidth)}{member.PhoneNumber.PadRight(phoneWidth)}{member.Email.PadRight(emailWidth)}"
+                );
             }
+
             Screen.WaitScreen();
         }
+
         public void DisplayMemberDetails(Member member)
         {
             if (member != null)
             {
                 Console.WriteLine("---- Member Details ----");
-                Console.WriteLine(member.ToString());
+
+                // Define column widths for better alignment
+                int labelWidth = 15;
+                int valueWidth = 30;
+
+                // Display member details with label and value aligned
+                Console.WriteLine($"{"ID:".PadRight(labelWidth)}{member.Id.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Name:".PadRight(labelWidth)}{member.Name.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Age:".PadRight(labelWidth)}{member.Age.ToString().PadRight(valueWidth)}");
+                Console.WriteLine($"{"Gender:".PadRight(labelWidth)}{member.Gender.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Date of Birth:".PadRight(labelWidth)}{member.DateOfBirth.ToString("yyyy-MM-dd").PadRight(valueWidth)}");
+                Console.WriteLine($"{"Address:".PadRight(labelWidth)}{member.Address.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Phone Number:".PadRight(labelWidth)}{member.PhoneNumber.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Email:".PadRight(labelWidth)}{member.Email.PadRight(valueWidth)}");
             }
             else
             {
                 Console.WriteLine("Member not found.");
             }
+
             Screen.WaitScreen();
         }
         public Member GetNewMemberInput()
         {
+            Console.WriteLine("Enter Member ID:");
+            string id = Console.ReadLine();
+
             Console.WriteLine("Enter Member Name:");
             string name = Console.ReadLine();
 
@@ -145,6 +222,7 @@ namespace LibraryManagement.View
 
             return new Member
             {
+                Id = id,
                 Role = "member",
                 Name = name,
                 Age = age,
@@ -173,27 +251,66 @@ namespace LibraryManagement.View
         public void DisplayAllLibrarian(List<Librarian> librarianList)
         {
             Console.WriteLine("---- List of Librarians ----");
+
+            // Define column widths for better alignment
+            int idWidth = 5;
+            int nameWidth = 17;
+            int ageWidth = 5;
+            int genderWidth = 10;
+            int dobWidth = 15;
+            int addressWidth = 27;
+            int phoneWidth = 15;
+            int emailWidth = 25;
+            int roleWidth = 15;
+            // Print table headers
+            Console.WriteLine(
+                $"{"ID".PadRight(idWidth)}{"Name".PadRight(nameWidth)}{"Age".PadRight(ageWidth)}{"Gender".PadRight(genderWidth)}{"DOB".PadRight(dobWidth)}{"Address".PadRight(addressWidth)}{"Phone Number".PadRight(phoneWidth)}{"Email".PadRight(emailWidth)}{"Role".PadRight(roleWidth)}"
+            );
+
             foreach (var librarian in librarianList)
             {
-                Console.WriteLine(librarian.ToString());
+                // Print each librarian's details
+                Console.WriteLine(
+                    $"{librarian.Id.PadRight(idWidth)}{librarian.Name.PadRight(nameWidth)}{librarian.Age.ToString().PadRight(ageWidth)}{librarian.Gender.PadRight(genderWidth)}{librarian.DateOfBirth.ToString("yyyy-MM-dd").PadRight(dobWidth)}{librarian.Address.PadRight(addressWidth)}{librarian.PhoneNumber.PadRight(phoneWidth)}{librarian.Email.PadRight(emailWidth)}{librarian.Role.PadRight(roleWidth)}"
+                );
             }
+
             Screen.WaitScreen();
         }
+
         public void DisplayLibrarianDetails(Librarian librarian)
         {
             if (librarian != null)
             {
-                Console.WriteLine("---- Member Details ----");
-                Console.WriteLine(librarian.ToString());
+                Console.WriteLine("---- Librarian Details ----");
+
+                // Define column widths for better alignment
+                int labelWidth = 15;
+                int valueWidth = 30;
+
+                // Display librarian details with label and value aligned
+                Console.WriteLine($"{"ID:".PadRight(labelWidth)}{librarian.Id.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Name:".PadRight(labelWidth)}{librarian.Name.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Age:".PadRight(labelWidth)}{librarian.Age.ToString().PadRight(valueWidth)}");
+                Console.WriteLine($"{"Gender:".PadRight(labelWidth)}{librarian.Gender.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Date of Birth:".PadRight(labelWidth)}{librarian.DateOfBirth.ToString("yyyy-MM-dd").PadRight(valueWidth)}");
+                Console.WriteLine($"{"Address:".PadRight(labelWidth)}{librarian.Address.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Phone Number:".PadRight(labelWidth)}{librarian.PhoneNumber.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Email:".PadRight(labelWidth)}{librarian.Email.PadRight(valueWidth)}");
+                Console.WriteLine($"{"Role:".PadRight(labelWidth)}{librarian.Role.PadRight(valueWidth)}");
             }
             else
             {
-                Console.WriteLine("Member not found.");
+                Console.WriteLine("Librarian not found.");
             }
+
             Screen.WaitScreen();
         }
         public Librarian GetNewLibrarianInput()
-        { 
+        {
+            Console.WriteLine("Enter Librarian ID:");
+            string id = Console.ReadLine();
+
             Console.WriteLine("Enter Librarian Name:");
             string name = Console.ReadLine();
 
@@ -226,6 +343,7 @@ namespace LibraryManagement.View
 
             return new Librarian
             {
+                Id = id,
                 Role = "librarian",
                 Name = name,
                 Age = age,
@@ -251,12 +369,16 @@ namespace LibraryManagement.View
             while (!exit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Main Management Menu ------");
-                Console.WriteLine("1. Staff Management");
-                Console.WriteLine("2. Librarian Management");
-                Console.WriteLine("3. Member Management");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("====================================");
+                Console.WriteLine("       Main Management Menu        ");
+                Console.WriteLine("====================================");
+                Console.WriteLine($"| 1. Staff Management              |");
+                Console.WriteLine($"| 2. Librarian Management          |");
+                Console.WriteLine($"| 3. Member Management             |");
+                Console.WriteLine($"| 4. Exit                          |");
+                Console.WriteLine("====================================");
                 Console.Write("Choose an option (1-4): ");
+
 
                 string mainChoice = Console.ReadLine();
 
@@ -287,14 +409,18 @@ namespace LibraryManagement.View
             while (!staffExit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Staff Management ------");
-                Console.WriteLine("1. Add Staff");
-                Console.WriteLine("2. Update Staff");
-                Console.WriteLine("3. Remove Staff");
-                Console.WriteLine("4. Display All Staff");
-                Console.WriteLine("5. Search Staff by ID");
-                Console.WriteLine("6. Back to Main Menu");
+                Console.WriteLine("====================================");
+                Console.WriteLine("       Staff Management             ");
+                Console.WriteLine("====================================");
+                Console.WriteLine($"| 1. Add Staff                     |");
+                Console.WriteLine($"| 2. Update Staff                  |");
+                Console.WriteLine($"| 3. Remove Staff                  |");
+                Console.WriteLine($"| 4. Display All Staff             |");
+                Console.WriteLine($"| 5. Search Staff by ID            |");
+                Console.WriteLine($"| 6. Back to Main Menu             |");
+                Console.WriteLine("====================================");
                 Console.Write("Choose an option (1-6): ");
+
 
                 string choice = Console.ReadLine();
 
@@ -330,7 +456,6 @@ namespace LibraryManagement.View
                         break;
 
                     case "6":
-                        staffControl.WriteToFile();
                         staffExit = true;
                         break;
 
@@ -347,14 +472,18 @@ namespace LibraryManagement.View
             while (!librarianExit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Librarian Management ------");
-                Console.WriteLine("1. Add Librarian");
-                Console.WriteLine("2. Update Librarian");
-                Console.WriteLine("3. Remove Librarian");
-                Console.WriteLine("4. Display All Librarians");
-                Console.WriteLine("5. Search Librarian by ID");
-                Console.WriteLine("6. Back to Main Menu");
+                Console.WriteLine("====================================");
+                Console.WriteLine("      Librarian Management          ");
+                Console.WriteLine("====================================");
+                Console.WriteLine($"| 1. Add Librarian                 |");
+                Console.WriteLine($"| 2. Update Librarian              |");
+                Console.WriteLine($"| 3. Remove Librarian              |");
+                Console.WriteLine($"| 4. Display All Librarians        |");
+                Console.WriteLine($"| 5. Search Librarian by ID        |");
+                Console.WriteLine($"| 6. Back to Main Menu             |");
+                Console.WriteLine("====================================");
                 Console.Write("Choose an option (1-6): ");
+
 
                 string choice = Console.ReadLine();
 
@@ -395,7 +524,6 @@ namespace LibraryManagement.View
                         break;
 
                     case "6":
-                        librarianControl.WriteToFile();
                         librarianExit = true;
                         break;
 
@@ -412,14 +540,18 @@ namespace LibraryManagement.View
             while (!memberExit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Member Management ------");
-                Console.WriteLine("1. Add Member");
-                Console.WriteLine("2. Update Member");
-                Console.WriteLine("3. Remove Member");
-                Console.WriteLine("4. Display All Members");
-                Console.WriteLine("5. Search Member by ID");
-                Console.WriteLine("6. Back to Main Menu");
+                Console.WriteLine("====================================");
+                Console.WriteLine("        Member Management           ");
+                Console.WriteLine("====================================");
+                Console.WriteLine($"| 1. Add Member                    |");
+                Console.WriteLine($"| 2. Update Member                 |");
+                Console.WriteLine($"| 3. Remove Member                 |");
+                Console.WriteLine($"| 4. Display All Members           |");
+                Console.WriteLine($"| 5. Search Member by ID           |");
+                Console.WriteLine($"| 6. Back to Main Menu             |");
+                Console.WriteLine("====================================");
                 Console.Write("Choose an option (1-6): ");
+
 
                 string choice = Console.ReadLine();
 
@@ -457,7 +589,6 @@ namespace LibraryManagement.View
                         break;
 
                     case "6":
-                        memberControl.WriteToFile();
                         memberExit = true;
                         break;
 

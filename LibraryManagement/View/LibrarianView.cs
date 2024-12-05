@@ -106,16 +106,18 @@ namespace LibraryManagement.View
             while (!librarianExit)
             {
                 Console.Clear();
-                Console.WriteLine("------ Book Management Menu (Librarian) ------");
-                Console.WriteLine("1. Add Book");
-                Console.WriteLine("2. Update Book");
-                Console.WriteLine("3. Remove Book");
-                Console.WriteLine("4. Display All Books");
-                Console.WriteLine("5. Search Book by ID");
-                Console.WriteLine("6. Set Avalability by ID");
-                Console.WriteLine("7. Back to Main Menu");
+                Console.WriteLine("====================================");
+                Console.WriteLine("       Book Management Menu         ");
+                Console.WriteLine("====================================");
+                Console.WriteLine("| 1. Add Book                      |");
+                Console.WriteLine("| 2. Update Book                   |");
+                Console.WriteLine("| 3. Remove Book                   |");
+                Console.WriteLine("| 4. Display All Books             |");
+                Console.WriteLine("| 5. Search Book by ID             |");
+                Console.WriteLine("| 6. Set Avalability by ID         |");
+                Console.WriteLine("| 7. Back to Main Menu             |");
+                Console.WriteLine("====================================");
                 Console.Write("Choose an option (1-7): ");
-
                 string choice = Console.ReadLine();
 
                 switch (choice)

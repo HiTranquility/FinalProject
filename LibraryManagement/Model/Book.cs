@@ -51,28 +51,12 @@ namespace LibraryManagement.Model
         }
         public void BorrowBook()
         {
-            if (IsAvailable)
-            {
-                IsAvailable = false;
-                Console.WriteLine($"The book '{Title}' has been successfully borrowed.");
-            }
-            else
-            {
-                Console.WriteLine($"The book '{Title}' is currently unavailable.");
-            }
+            if (IsAvailable) IsAvailable = false;
         }
 
         public void ReturnBook()
         {
-            if (!IsAvailable)
-            {
-                IsAvailable = true;
-                Console.WriteLine($"The book '{Title}' has been successfully returned.");
-            }
-            else
-            {
-                Console.WriteLine($"The book '{Title}' was not borrowed.");
-            }
+            if (!IsAvailable) IsAvailable = true;
         }
     }
 }

@@ -37,15 +37,29 @@ namespace LibraryManagement.View
                         break;
 
                     case "2":
+                        bookControl.DisplayAllBooks();
                         Console.Write("Enter Book ID to borrow: ");
                         string bookIdToBorrow = Console.ReadLine();
-                        bookControl.BorrowBook(bookIdToBorrow);
+                        if (bookControl.BorrowBook(bookIdToBorrow))
+                        {
+                            bool availability = false;
+                            bookControl.SetAvailability(bookIdToBorrow, availability);
+                            Book book = bookControl.GetBookById(bookIdToBorrow);
+                            memberControl.GetPersonById(userID).BorrowedBooks.Add(book);
+                        }
                         break;
 
                     case "3":
+                        memberControl.GetPersonById(userID).DisplayBorrowedBookDetails();
                         Console.Write("Enter Book ID to return: ");
                         string bookIdToReturn = Console.ReadLine();
-                        bookControl.ReturnBook(bookIdToReturn);
+                        if (bookControl.ReturnBook(bookIdToReturn))
+                        {
+                            bool availability = true;
+                            bookControl.SetAvailability(bookIdToReturn, availability);
+                            Book book = bookControl.GetBookById(bookIdToReturn);
+                            memberControl.GetPersonById(userID).BorrowedBooks.Remove(book);
+                        }
                         break;
 
                     case "4":

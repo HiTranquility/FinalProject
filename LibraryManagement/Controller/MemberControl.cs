@@ -10,9 +10,7 @@ namespace LibraryManagement.Controller
         // Constructor
         public MemberControl() : base() 
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Member.txt");
+            string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Member.txt");
 
             // Read the staff list from the relative file path
             var memberList = ReadMemberFromFile(filePath);
@@ -21,18 +19,43 @@ namespace LibraryManagement.Controller
                 AddPerson(member);
             }
         }
-        public override void WriteToFile(string filePath)
+        public void WriteToFile()
         {
             try
             {
-                var content = string.Join("\n", GetPersonList().Select(member =>
-                    $"{member.Id},{member.Name},{member.Address},{member.PhoneNumber}," +
-                    $"{member.Email},{member.Username},{member.Password}"));
+                // Construct the file path
+                string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Member.txt");
+
+                // Check if there are any members in the list
+                var memberList = GetPersonList();
+                if (memberList == null || memberList.Count == 0)
+                {
+                    Console.WriteLine("No member data to write to the file.");
+                    return;
+                }
+
+                // Format the data into a string
+                var content = string.Join("\n", memberList.Select(member =>
+                    $"{member.Id}:{member.Role}:{member.Name}:{member.Age}:{member.Gender}:" +
+                    $"{member.DateOfBirth:MM/dd/yyyy}:{member.Address}:{member.PhoneNumber}:" +
+                    $"{member.Email}:{member.Username}:{member.Password}:{member.MembershipStartDate:MM/dd/yyyy}:{member.BookLink}"));
+
+                // Write the data to the file
                 System.IO.File.WriteAllText(filePath, content);
+
+                Console.WriteLine("Member data successfully written to the file.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Access denied. Ensure you have write permissions for the target file.");
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine($"I/O error occurred: {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error writing member data to file: {ex.Message}");
+                Console.WriteLine($"Unexpected error while writing to the file: {ex.Message}");
             }
         }
         // Đọc danh sách thành viên từ file
@@ -63,11 +86,7 @@ namespace LibraryManagement.Controller
                             MembershipStartDate = DateTime.Parse(data[11]),
                             BookLink = data[12].Trim()
                         };
-                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                        // Navigate up two levels to the project root
-                        string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-                        // Construct the file path outside bin/Debug
-                        string bookPath = System.IO.Path.Combine(projectRoot, "BookFiles", member.BookLink);
+                        string bookPath = System.IO.Path.Combine(RelativePath.projectRoot, "BookFiles", member.BookLink);
 
                         var borrowedBooks = member.ReadBorrowedBooksFromFile(bookPath);
                         member.BorrowedBooks = borrowedBooks;

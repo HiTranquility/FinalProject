@@ -159,6 +159,7 @@ namespace LibraryManagement.View
                         bookControl.SetAvailability(bookIdToSet, availability);
                         break;
                     case "7":
+                        bookControl.WriteToFile();
                         librarianExit = true;
                         break;
 

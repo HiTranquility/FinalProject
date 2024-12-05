@@ -10,9 +10,7 @@ namespace LibraryManagement.Controller
         // Constructor
         public StaffControl() : base()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Staff.txt");
+            string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Staff.txt");
             var staffList = ReadStaffFromFile(filePath);
             foreach (var staff in staffList)
             {
@@ -20,21 +18,45 @@ namespace LibraryManagement.Controller
             }
         }
 
-        public override void WriteToFile(string filePath)
+        public void WriteToFile()
         {
             try
             {
-                var content = string.Join("\n", GetPersonList().Select(staff =>
-                    $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender}," +
-                    $"{staff.DateOfBirth:MM/dd/yyyy},{staff.Address},{staff.PhoneNumber}," +
-                    $"{staff.Email},{staff.Username},{staff.Password}"));
+                // Construct the file path
+                string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Staff.txt");
+
+                // Check if there are any staff members in the list
+                var staffList = GetPersonList();
+                if (staffList == null || staffList.Count == 0)
+                {
+                    Console.WriteLine("No staff data to write to the file.");
+                    return;
+                }
+
+                // Format the data into a string
+                var content = string.Join("\n", staffList.Select(staff =>
+                    $"{staff.Id}:{staff.Role}:{staff.Name}:{staff.Age}:{staff.Gender}:" +
+                    $"{staff.DateOfBirth:MM/dd/yyyy}:{staff.Address}:{staff.PhoneNumber}:" +
+                    $"{staff.Email}:{staff.Username}:{staff.Password}"));
+
+                // Write the data to the file
                 System.IO.File.WriteAllText(filePath, content);
+                Console.WriteLine("Staff data successfully written to the file.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Access denied. Ensure you have write permissions for the target file.");
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine($"I/O error occurred: {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error writing staff data to file: {ex.Message}");
+                Console.WriteLine($"Unexpected error while writing to the file: {ex.Message}");
             }
         }
+
 
         public List<Staff> ReadStaffFromFile(string filePath)
         {

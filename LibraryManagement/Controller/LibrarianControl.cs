@@ -9,9 +9,7 @@ namespace LibraryManagement.Controller
     {
         public LibrarianControl() : base()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Librarian.txt");
+            string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Librarian.txt");
 
             var librarianList = ReadLibrarianFromFile(filePath);
             foreach (var librarian in librarianList)
@@ -19,21 +17,46 @@ namespace LibraryManagement.Controller
                 AddPerson(librarian);
             }
         }
-        public override void WriteToFile(string filePath)
+        public void WriteToFile()
         {
             try
             {
-                var content = string.Join("\n", GetPersonList().Select(staff =>
-                    $"{staff.Id},{staff.Role},{staff.Name},{staff.Age},{staff.Gender}," +
-                    $"{staff.DateOfBirth:MM/dd/yyyy},{staff.Address},{staff.PhoneNumber}," +
-                    $"{staff.Email},{staff.Username},{staff.Password}"));
+                // Construct the file path
+                string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Librarian.txt");
+
+                // Check if there are any librarians in the list
+                var librarianList = GetPersonList();
+                if (librarianList == null || librarianList.Count == 0)
+                {
+                    Console.WriteLine("No librarian data to write to the file.");
+                    return;
+                }
+
+                // Format the data into a string
+                var content = string.Join("\n", librarianList.Select(librarian =>
+                    $"{librarian.Id}:{librarian.Role}:{librarian.Name}:{librarian.Age}:{librarian.Gender}:" +
+                    $"{librarian.DateOfBirth:MM/dd/yyyy}:{librarian.Address}:{librarian.PhoneNumber}:" +
+                    $"{librarian.Email}:{librarian.Username}:{librarian.Password}"));
+
+                // Write the data to the file
                 System.IO.File.WriteAllText(filePath, content);
+
+                Console.WriteLine("Librarian data successfully written to the file.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Access denied. Ensure you have write permissions for the target file.");
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine($"I/O error occurred: {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error writing staff data to file: {ex.Message}");
+                Console.WriteLine($"Unexpected error while writing to the file: {ex.Message}");
             }
         }
+
 
         public List<Librarian> ReadLibrarianFromFile(string filePath)
         {

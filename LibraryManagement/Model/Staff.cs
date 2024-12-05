@@ -20,7 +20,7 @@ namespace LibraryManagement.Model
         }
         public override string GetId()
         {
-            return Id; // Trả về thuộc tính `Id` của lớp `Member`
+            return Id; 
         }
     }
 }

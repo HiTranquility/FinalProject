@@ -105,20 +105,6 @@ namespace LibraryManagement.Controller
                 Console.WriteLine($"Error reading person data from file: {ex.Message}");
             }
         }
-
-        public virtual void WriteToFile(string filePath)
-        {
-            try
-            {
-                var content = string.Join("\n", personList.Select(person => person.ToString()));
-                System.IO.File.WriteAllText(filePath, content);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error writing person data to file: {ex.Message}");
-            }
-        }
-
         private T ParsePerson(string data)
         {
             return new T();

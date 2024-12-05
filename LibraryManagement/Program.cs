@@ -89,6 +89,7 @@ namespace LibraryManagement
                 userRole = "Staff";
                 userID = staffControl.GetIdByUsername(username);
                 Console.WriteLine("Staff logged in successfully!");
+                Screen.WaitScreen();
                 return true;
             }
             Librarian librarian = librarianControl.GetPersonByUsernameAndPassword(username, password);
@@ -97,6 +98,7 @@ namespace LibraryManagement
                 userRole = "Librarian";
                 userID = staffControl.GetIdByUsername(username);
                 Console.WriteLine("Librarian logged in successfully!");
+                Screen.WaitScreen();
                 return true;
             }
             Member member = memberControl.GetPersonByUsernameAndPassword(username, password);
@@ -105,6 +107,7 @@ namespace LibraryManagement
                 userRole = "Member";
                 userID = memberControl.GetIdByUsername(username);
                 Console.WriteLine("Member logged in successfully!");
+                Screen.WaitScreen();
                 return true;
             }
             userRole = null;

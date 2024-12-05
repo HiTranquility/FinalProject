@@ -1,6 +1,7 @@
 ﻿using LibraryManagement.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LibraryManagement.Model
 {
@@ -12,28 +13,71 @@ namespace LibraryManagement.Model
         private string bookLink;
         private List<Book> borrowedBooks;
 
-        public string Id { get { return id; } set { this.id = value; } }
-        public string Role { get { return role; } set { this.role = value; } }
-        public DateTime MembershipStartDate { get { return membershipStartDate; } set { this.membershipStartDate = value; } }
-        public string BookLink { get { return bookLink; } set { this.bookLink = value; } }
-        public List<Book> BorrowedBooks { get { return borrowedBooks; } set { this.borrowedBooks = value; } }
+        // Các thuộc tính đánh dấu sự thay đổi
+        private bool isRoleChanged;
+        private bool isMembershipStartDateChanged;
+        private bool isBookLinkChanged;
 
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public string Role
+        {
+            get { return role; }
+            set { role = value; isRoleChanged = true; }
+        }
+
+        public DateTime MembershipStartDate
+        {
+            get { return membershipStartDate; }
+            set { membershipStartDate = value; isMembershipStartDateChanged = true; }
+        }
+
+        public string BookLink
+        {
+            get { return bookLink; }
+            set { bookLink = value; isBookLinkChanged = true; }
+        }
+
+        public List<Book> BorrowedBooks
+        {
+            get { return borrowedBooks; }
+            set { borrowedBooks = value; }
+        }
+
+        // Constructor
         public Member()
         {
             borrowedBooks = new List<Book>();
         }
+
         public override string GetId()
         {
-            return Id; 
+            return Id;
         }
+
         public override string ToString()
         {
-            // Call the ToString() method of the base class and append Member details
-            return base.ToString() +
-                   $"\nMembership ID: {Id}\n" +
-                   $"Role: {Role}\n" +
-                   $"Membership Start Date: {MembershipStartDate.ToShortDateString()}\n";
+            string memberInfo = base.ToString() +
+                   $"\nMembership ID: {Id}\n";
+
+            // Kiểm tra và tô đậm các trường đã thay đổi
+            Console.ForegroundColor = isRoleChanged ? ConsoleColor.Yellow : ConsoleColor.White;
+            memberInfo += $"Role: {Role}\n";
+
+            Console.ForegroundColor = isMembershipStartDateChanged ? ConsoleColor.Yellow : ConsoleColor.White;
+            memberInfo += $"Membership Start Date: {MembershipStartDate.ToShortDateString()}\n";
+
+            Console.ForegroundColor = isBookLinkChanged ? ConsoleColor.Yellow : ConsoleColor.White;
+            memberInfo += $"Book Link: {BookLink}\n";
+
+            Console.ResetColor();
+            return memberInfo;
         }
+
         public void DisplayBorrowedBookDetails()
         {
             if (borrowedBooks.Count == 0)
@@ -49,7 +93,6 @@ namespace LibraryManagement.Model
                 Console.WriteLine($"Title: {book.Title}");
                 Console.WriteLine($"Author: {book.Author}");
                 Console.WriteLine($"Genre: {book.Genre}");
-                Console.WriteLine($"Available: {(book.IsAvailable ? "Yes" : "No")}");
                 Console.WriteLine($"Publication Date: {book.PublicationDate:MM/dd/yyyy}");
                 Console.WriteLine("---------------------------");
             }

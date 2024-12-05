@@ -341,6 +341,7 @@ namespace LibraryManagement.View
                         break;
 
                     case "6":
+                        staffControl.WriteToFile();
                         staffExit = true;
                         break;
 
@@ -405,6 +406,7 @@ namespace LibraryManagement.View
                         break;
 
                     case "6":
+                        librarianControl.WriteToFile();
                         librarianExit = true;
                         break;
 
@@ -466,6 +468,7 @@ namespace LibraryManagement.View
                         break;
 
                     case "6":
+                        memberControl.WriteToFile();
                         memberExit = true;
                         break;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication.ExtendedProtection;
 using LibraryManagement.Model;
 using LibraryManagement.Util;
 
@@ -8,16 +9,10 @@ namespace LibraryManagement.Controller
 {
     internal class BookControl
     {
-        private List<Book> bookList;
-
+        private List<Book> bookList; 
         public BookControl()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            // Navigate up two levels to the project root
-            string projectRoot = System.IO.Directory.GetParent(baseDirectory).Parent.Parent.Parent.FullName;
-            // Construct the file path outside bin/Debug
-            string filePath = System.IO.Path.Combine(projectRoot, "TextFiles", "Book.txt");
-
+            string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Book.txt");
             var bookList = ReadBookFromFile(filePath);
             this.bookList = bookList;
         }
@@ -77,7 +72,7 @@ namespace LibraryManagement.Controller
         }
 
         // Mượn sách
-        public void BorrowBook(string bookId)
+        public bool BorrowBook(string bookId)
         {
             Book bookToBorrow = bookList.FirstOrDefault(b => b.Id == bookId);
             if (bookToBorrow != null)
@@ -85,26 +80,37 @@ namespace LibraryManagement.Controller
                 if (bookToBorrow.IsAvailable)
                 {
                     bookToBorrow.BorrowBook();
+                    Console.WriteLine("Book borrowed successfully!");
+                    Screen.WaitScreen();
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine($"The book '{bookToBorrow.Title}' is currently not available for borrowing.");
+                    Screen.WaitScreen();
+                    return false;
                 }
             }
             else
             {
                 Console.WriteLine("Book not found.");
+                Screen.WaitScreen();
+                return false;
             }
         }
 
         // Trả sách
-        public void ReturnBook(string bookId)
+        public bool ReturnBook(string bookId)
         {
             Book bookToReturn = bookList.FirstOrDefault(b => b.Id == bookId);
             if (bookToReturn != null)
             {
                 bookToReturn.ReturnBook();
+                Console.WriteLine("Book returned sucessfully!");
+                Screen.WaitScreen();
+                return true;
             }
+            return false;
         }
 
         // Lấy danh sách sách
@@ -118,15 +124,14 @@ namespace LibraryManagement.Controller
             if (bookToUpdate != null) bookToUpdate.IsAvailable = isAvailable; 
         }
 
-        public void WriteToFile(string filePath)
+        public void WriteToFile()
         {
             try
             {
                 var content = string.Join("\n", bookList.Select(book =>
-                    $"{book.Id},{book.Title},{book.Author},{book.Genre},{book.IsAvailable}," +
-                    $"{book.PublicationDate:MM/dd/yyyy}"));
+                    $"{book.Id}:{book.Title}:{book.Author}:{book.Genre}:{book.IsAvailable}:{book.PublicationDate:MM/dd/yyyy}"));
 
-                // Write the formatted content to the file
+                string filePath = System.IO.Path.Combine(RelativePath.projectRoot, "TextFiles", "Book.txt");
                 System.IO.File.WriteAllText(filePath, content);
             }
             catch (Exception ex)
